@@ -1,5 +1,4 @@
 const fetch = require('node-fetch');
-var parseString = require('xml2js').parseString;
 
 const key = '7f90381d161b96c5c9ab23371d5cc781'
 
@@ -74,9 +73,8 @@ function fetchTags(artistName, trackName, num){
     let fetchTagsString = fetchTagsOne + artistName + fetchTagsTwo + trackName + fetchTagsThree
     let returnArr = []
     return fetch(fetchTagsString)
-        .then(function(res) {
-            return res.json();
-        }).then(function(body) {
+        .then(res => res.json())
+        .then(body => {
             for (let i = 0; i < num; i++){
                 if (body.toptags && body.toptags.tag && body.toptags.tag[i] !== undefined){
                     returnArr.push(body.toptags.tag[i].name)
@@ -142,7 +140,6 @@ module.exports = {
 
 const artist = 'don maclean'
 const song = "american pie"
-
 
 // findSong('britney spear toxic')
 
