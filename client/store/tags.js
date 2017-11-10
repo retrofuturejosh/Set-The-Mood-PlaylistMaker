@@ -22,7 +22,7 @@ const getTagOptions = fetchedTags => ({type: GET_TAG_OPTIONS, tags: fetchedTags}
  */
 export const tagOptionsThunk = (songName, artistName) =>
     dispatch => {
-        return axios.get(`/api/songs?song=${songName}&artist=${artistName}&num=10`)
+        return axios.get(`/api/songs/?tags=true&song=${songName}&artist=${artistName}&num=20`)
         .then(res => {
             dispatch(getTagOptions(res.data || tagOptions))
         })

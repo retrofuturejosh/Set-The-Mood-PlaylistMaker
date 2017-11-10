@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+var stringSimilarity = require('string-similarity');
 
 const key = '7f90381d161b96c5c9ab23371d5cc781'
 
@@ -7,6 +8,10 @@ const googleQueryURL = 'http://suggestqueries.google.com/complete/search?output=
 const fetchStringOne = 'http://ws.audioscrobbler.com/2.0/?method=track.getsimilar&artist='
 const fetchStringTwo = '&track='
 const fetchStringThree = '&api_key=' + key + '&format=json'
+
+const fetchInfoOne = 'http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=' + key + '&artist='
+const fetchInfoTwo = '&track='
+const fetchInfoThree = '&format=json'
 
 const fetchTagsOne = 'http://ws.audioscrobbler.com/2.0/?method=track.gettoptags&artist='
 const fetchTagsTwo = '&track='
@@ -21,9 +26,19 @@ const fetchArtistSearchTwo = '&api_key=' + key + '&format=json'
 const findSongOne = 'http://ws.audioscrobbler.com/2.0/?method=track.search&track=' 
 const findSongTwo = '&api_key=' + key + '&format=json'
 
-const getSimilarTagsOne = 'http://ws.audioscrobbler.com/2.0/?method=tag.getsimilar&tag='
-const getSimilarTagsTwo = '&api_key=' + key + '&format=json'
-
+function fetchTrackInfo(artist, track){
+    const fetchInfoAPIURL = fetchInfoOne + artist + fetchInfoTwo + track + fetchInfoThree
+    console.log(fetchInfoAPIURL, 'comare with http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=7f90381d161b96c5c9ab23371d5cc781&artist=cher&track=believe&format=json', )
+    return fetch(fetchInfoAPIURL)
+    .then(res => res.json())
+    .then(body => {
+        if (body.track){
+            return {track: body.track.name, artist: body.track.artist.name, album: body.track.album.title}
+        }
+        return body
+    })
+    .catch(err => console.log(err))
+}
 
 function findSong(searchTerm){
     let findSongAPIURL = findSongOne + searchTerm + findSongTwo
@@ -75,11 +90,24 @@ function fetchTags(artistName, trackName, num){
     return fetch(fetchTagsString)
         .then(res => res.json())
         .then(body => {
-            for (let i = 0; i < num; i++){
+            for (let i = 0; i < 40; i++){
                 if (body.toptags && body.toptags.tag && body.toptags.tag[i] !== undefined){
-                    returnArr.push(body.toptags.tag[i].name)
-                } else break
+                    if (returnArr.length){
+                        console.log(body.toptags.tag[i])
+                        let checkThese = [...returnArr]
+                        let flag = false
+                        checkThese.forEach(tag => {
+                            let similarity = stringSimilarity.compareTwoStrings(body.toptags.tag[i].name, tag.name);
+                            if (similarity > 0.69){
+                                console.log(`similarity between ${body.toptags.tag[i].name} & ${tag.name} is ${similarity}`)                                
+                                flag = true
+                            }
+                        })
+                        if (!flag && returnArr.length < 20) returnArr.push({name: body.toptags.tag[i].name, count: body.toptags.tag[i].count})
+                    } else returnArr.push({name: body.toptags.tag[i].name, count: body.toptags.tag[i].count})
+                }
             }
+            console.log('tag array is ', returnArr)
             return returnArr
         }).catch(err => console.log(err)
         );
@@ -138,8 +166,9 @@ module.exports = {
 
 //TESTING THE FUNCTIONS
 
-const artist = 'don maclean'
-const song = "american pie"
+// const artist = 'don maclean'
+// const song = "american pie"
+
 
 // findSong('britney spear toxic')
 
