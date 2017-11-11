@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import history from '../history'
 
-import { tagOptionsThunk } from '../store'
+import { tagOptionsThunk, setTrackThunk } from '../store'
 
 /**
  * COMPONENT
@@ -51,6 +51,7 @@ const mapState = (state) => {
             evt.preventDefault()
             const song = evt.target.song.value
             const artist = evt.target.artist.value
+            dispatch(setTrackThunk(artist, song))
             dispatch(tagOptionsThunk(song, artist))
             history.push('/tagoptions')
         }

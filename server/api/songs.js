@@ -4,7 +4,6 @@ const fetchTags = require('./starting').fetchTags
 module.exports = router
 
 router.get('/', (req, res, next) => {
-    console.log('!!!!!! REQ QUERY IS ', req.query)
     if (req.query.tags) {
         fetchTags(req.query.artist, req.query.song, req.query.num)
         .then(tags => {

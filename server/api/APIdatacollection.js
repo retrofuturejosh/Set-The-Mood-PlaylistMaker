@@ -59,5 +59,5 @@ let potentialMatchesPromise = getTagsPromise.then(results => {
     potentialMatches = songs.sort((a, b) => {
         return b.numTagMatches - a.numTagMatches
     })
-    console.log(potentialMatches.slice(0, 25))
+    // console.log(potentialMatches.slice(0, 25))
 })

@@ -5,6 +5,7 @@ import {withRouter, Link} from 'react-router-dom'
 import history from '../history'
 
 import { chooseTagsThunk } from '../store/chosen-tags'
+import { fetchPlaylistThunk } from '../store/playlist'
 
 /**
  * COMPONENT
@@ -65,7 +66,7 @@ class TagOptions extends Component {
                         this.state.notEnough ? 
                         (<div> You must choose at least one tag! </div>)
                         :
-                        <button onClick={e => this.props.handleSubmit(e, this.state.choosingTags)}>Set the mood!</button>
+                        <button onClick={e => this.props.handleSubmit(e, this.state.choosingTags, this.props.tagOptions, this.props.chosenTrack.artist, this.props.chosenTrack.track)}>Set the mood!</button>
                     }
                     <div>
                         {this.props.tagOptions.map((tag, i) => {
@@ -103,16 +104,18 @@ const mapState = (state) => {
     return {
       tagOptions: state.tagOptions,
       tagsAvail: state.tagOptions.length,
-      chosenTags: state.chosenTags
+      chosenTags: state.chosenTags,
+      chosenTrack: state.chosenTrack
     }
   }
   
   const mapDispatch = (dispatch) => {
     return {
-        handleSubmit: (evt, tags) => {
+        handleSubmit: (evt, chosenTags, moreTags, artist, track) => {
             evt.preventDefault()
-            if (tags.length){
-                dispatch(chooseTagsThunk(tags))
+            if (chosenTags.length){
+                dispatch(chooseTagsThunk(chosenTags))
+                dispatch(fetchPlaylistThunk(chosenTags, moreTags, artist, track))
                 history.push('/playlist')
             }
         }

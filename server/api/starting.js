@@ -93,13 +93,12 @@ function fetchTags(artistName, trackName, num){
             for (let i = 0; i < 40; i++){
                 if (body.toptags && body.toptags.tag && body.toptags.tag[i] !== undefined){
                     if (returnArr.length){
-                        console.log(body.toptags.tag[i])
                         let checkThese = [...returnArr]
                         let flag = false
                         checkThese.forEach(tag => {
                             let similarity = stringSimilarity.compareTwoStrings(body.toptags.tag[i].name, tag.name);
                             if (similarity > 0.69){
-                                console.log(`similarity between ${body.toptags.tag[i].name} & ${tag.name} is ${similarity}`)                                
+                                // console.log(`similarity between ${body.toptags.tag[i].name} & ${tag.name} is ${similarity}`)                                
                                 flag = true
                             }
                         })
@@ -107,7 +106,6 @@ function fetchTags(artistName, trackName, num){
                     } else returnArr.push({name: body.toptags.tag[i].name, count: body.toptags.tag[i].count})
                 }
             }
-            console.log('tag array is ', returnArr)
             return returnArr
         }).catch(err => console.log(err)
         );
@@ -158,7 +156,8 @@ module.exports = {
     fetchSimilarSongs,
     searchForArtist,
     googleQuery,
-    findSong
+    findSong,
+    fetchSongsByTag
 }
 
 
