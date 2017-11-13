@@ -7,8 +7,9 @@ import tagOptions from './tags'
 import chosenTags from './chosen-tags'
 import playlist from './playlist'
 import chosenTrack from './chosen-song'
+import possibleSongs from './possible-songs'
 
-const reducer = combineReducers({user, tagOptions, chosenTags, playlist, chosenTrack})
+const reducer = combineReducers({user, tagOptions, chosenTags, playlist, chosenTrack, possibleSongs})
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
   createLogger({collapsed: true})
@@ -21,3 +22,4 @@ export * from './tags'
 export * from './chosen-tags'
 export * from './playlist'
 export * from './chosen-song'
+export * from './possible-songs'

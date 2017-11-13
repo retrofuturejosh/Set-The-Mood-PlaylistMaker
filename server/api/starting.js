@@ -106,6 +106,7 @@ function fetchTags(artistName, trackName, num){
                     } else returnArr.push({name: body.toptags.tag[i].name, count: body.toptags.tag[i].count})
                 }
             }
+            // if (!returnArr.length) return ['NOT FOUND']
             return returnArr
         }).catch(err => console.log(err)
         );

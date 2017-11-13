@@ -6,6 +6,8 @@ import history from '../history'
 
 import { chooseTagsThunk } from '../store/chosen-tags'
 import { fetchPlaylistThunk } from '../store/playlist'
+import { possibleSongsThunk } from '../store/possible-songs'
+import { tagOptionsThunk, setTrackThunk } from '../store'
 
 /**
  * COMPONENT
@@ -49,9 +51,39 @@ class TagOptions extends Component {
         }
     }
 
+
     render() {
         console.log(this.state)
-        if (this.props.tagsAvail){
+        if (this.props.tagOptions[0] === 'NOT FOUND' && !this.props.possibleSongs.length) {
+            this.props.handleNotFound(`${this.props.chosenTrack.artist} ${this.props.chosenTrack.track}`)
+        }
+        if (this.props.tagOptions[0] === 'NOT FOUND' && this.props.possibleSongs.length){
+            return (
+                <div>
+                    <h3>
+                    Did you mean...
+                    </h3>
+                    {
+                        this.props.possibleSongs.length ? 
+                            this.props.possibleSongs.map((song, idx) => {
+                                if (idx < 3) {
+                                    return (<div key={idx} onClick={e => this.props.handleNewSong(e, song.track, song.artist)}>
+                                        {song.track} - {song.artist}
+                                    </div>
+                                    )
+                                }
+                            })
+                        : null
+                    }
+                </div>
+            )
+        }
+        if (this.props.tagOptions[0] === 'NOT FOUND') {
+            <div>
+                Song not found!
+            </div>
+        }
+        if (+this.props.tagsAvail > 1){
             return (
                 <div>
                     <h1>Set the Mood...</h1>
@@ -105,7 +137,8 @@ const mapState = (state) => {
       tagOptions: state.tagOptions,
       tagsAvail: state.tagOptions.length,
       chosenTags: state.chosenTags,
-      chosenTrack: state.chosenTrack
+      chosenTrack: state.chosenTrack,
+      possibleSongs: state.possibleSongs
     }
   }
   
@@ -118,6 +151,14 @@ const mapState = (state) => {
                 dispatch(fetchPlaylistThunk(chosenTags, moreTags, artist, track))
                 history.push('/playlist')
             }
+        }, 
+        handleNotFound: (searchTerm) => {
+            dispatch(possibleSongsThunk(searchTerm))
+        },
+        handleNewSong: (e, track, artist) => {
+            dispatch(setTrackThunk(artist, track))
+            dispatch(tagOptionsThunk(track, artist))
+            history.push('/tagoptions')
         }
       }
   }
