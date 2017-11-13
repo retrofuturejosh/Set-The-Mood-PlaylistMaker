@@ -2,11 +2,22 @@ const router = require('express').Router()
 const fetchSongs = require('./starting').fetchSongsByTag
 const fetchTags = require('./starting').fetchTags
 const fetchSimilar = require('./starting').fetchSimilarSongs
-var stringSimilarity = require('string-similarity');
+const stringSimilarity = require('string-similarity');
+const fetch = require('node-fetch');
+const youTubeSearch = require('youtube-search')
+
+const gKey = 'AIzaSyAVWqUYIJaHLlUINxsq-T4j1CAXMWHee2I'
+const APIKEY = gKey
+
+const youTubeOpts  = {
+    maxResults: 10,
+    key: gKey
+  };
 
 module.exports = router
 
 router.get('/', (req, res, next) => {
+    let finalPlaylist = []
     console.log('!!!!!! REQ QUERY IS ', req.query)
     let tagsArr = []
     let chosenTags = []
@@ -46,7 +57,7 @@ router.get('/', (req, res, next) => {
                     })
                 }
                 if (track.matchTags){
-                    track.matchStrength = (track.matchTags.length) * 4
+                    track.matchStrength = (track.matchTags.length) * 10
                 } else track.matchStrength = 0
                 if (track.halfMatches){
                     track.matchStrength += (track.halfMatches.length)
@@ -62,15 +73,31 @@ router.get('/', (req, res, next) => {
         return Promise.all(mergedTrackOptions)
     })
     .then(trackOptions => {
+        let redundantCheck = {}
+        let redundantFreeTrackOptions = trackOptions.filter(trackOption => {
+            if (redundantCheck[trackOption.name]) return false
+            else redundantCheck[trackOption.name] = true
+            return true
+        })
         let finalMatchOptions = trackOptions.sort((a, b) => {
-            return b.matchStrength > a.matchStrength
+            return b.matchStrength - a.matchStrength
         })
         // console.log(finalMatchOptions)
         let sameArtistCheck = {}
+        let songCheck = []
         let finalMatches = []
         for (let i = 0; i < 250; i++){
             if (finalMatches.length === 50) break
             let checkOption = finalMatchOptions[i]
+            let checkSong = checkOption.name
+            let alreadyChosen = false
+            if (checkOption.matchTags && !checkOption.matchTags.length) continue
+            songCheck.forEach(song => {
+                let similarSongCheck = stringSimilarity.compareTwoStrings(song, checkSong)
+                if (similarSongCheck > 0.5) alreadyChosen = true
+            })
+            if (alreadyChosen) continue
+            songCheck.push(checkSong)
             let checkArtist = checkOption.artist
                 if (sameArtistCheck[checkArtist]){
                     sameArtistCheck[checkArtist] += 1
@@ -83,7 +110,46 @@ router.get('/', (req, res, next) => {
                     finalMatches.push(checkOption)
                 }
         }
-        console.log(finalMatches)
-        res.json(finalMatches)
+        let youTubePromise = finalMatches.map(finalSong => {
+            return new Promise((resolve, reject) => {
+                youTubeSearch(`${finalSong.name} ${finalSong.artist} official`, youTubeOpts, function(err, results) {
+                    if(err) reject(err);
+                    if (results.length && results[0].id !== undefined) {
+                    finalSong.youtubeid = results[0].id
+                    }
+                    resolve(finalSong)
+                  })
+            })
+        })
+        return Promise.all(youTubePromise)
+    })
+    .then(playlist => {
+        let final = {}
+        playlist = playlist.filter(track => {
+            if (track.youtubeid) return true
+            return false
+        })
+        final.playlistArr = shuffle(playlist)
+        final.youTubeURL= 'https://www.youtube.com/watch_videos?video_ids='
+        playlist.forEach(track => {
+            if (track.youtubeid) {
+            final.youTubeURL += track.youtubeid + ','
+            }
+        })
+        final.youTubeURL = final.youTubeURL.slice(0, -1)
+        res.json(final)
     })
 })
+
+function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+    while (0 !== currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+  
+    return array;
+  }

@@ -9,7 +9,7 @@ const FETCH_PLAYLIST = 'FETCH_PLAYLIST'
 /**
  * INITIAL STATE
  */
-const playlist = []
+const playlist = {}
 
 /**
  * ACTION CREATORS
