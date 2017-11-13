@@ -5,7 +5,7 @@ import {withRouter, Link} from 'react-router-dom'
 import history from '../history'
 import YouTube from 'react-youtube'
 
-import { tagOptionsThunk } from '../store'
+import { tagOptionsThunk, removeTrackThunk } from '../store'
 
 /**
  * COMPONENT
@@ -22,6 +22,7 @@ class Playlist extends Component {
         }
         this.getVideo = this.getVideo.bind(this)
         this._onReady = this._onReady.bind(this)
+        this._onRemove = this._onRemove.bind(this)
     }
 
     getVideo () {
@@ -55,7 +56,7 @@ class Playlist extends Component {
                     videoId={this.props.playlist.playlistArr[+this.state.videoToggle].youtubeid} 
                     onEnd={this.getVideo}
                     opts={opts}
-                    /* onStateChange={this.getVideo} */
+                    onStateChange={this._onRemove}
                     onReady={this._onReady}
                     />
                 ) : <div>Creating playlist!</div>
@@ -63,8 +64,11 @@ class Playlist extends Component {
                 {   this.props.playlist.playlistArr ? (
                     this.props.playlist.playlistArr.map((song, i) => {
                         return (
-                            <div onClick={(e) => this.handleClick(e, i)} key={i}>
-                                {song.name} - {song.artist}
+                            <div key={`${i}div`}>
+                                <div onClick={(e) => this.handleClick(e, i)} key={i}>
+                                    {song.name} - {song.artist}
+                                </div>
+                                <button key={`${i}a`} onClick={(e) => this.props.removeTrack(e, this.props.playlist, i)}> x </button>
                             </div>
                         )
                     })
@@ -80,6 +84,12 @@ class Playlist extends Component {
             this.setState({started: true})
         }
       }
+      _onRemove(event) {
+        // access to player in all event handlers via event.target
+        if (!this.state.started){
+            event.target.pauseVideo();
+        }
+      }      
 }
 
 const mapState = (state) => {
@@ -97,7 +107,14 @@ const mapState = (state) => {
             const artist = evt.target.artist.value
             dispatch(tagOptionsThunk(song, artist))
             history.push('/tagoptions')
-        }
+        },
+        removeTrack (e, currentPlaylist, idx) {
+            console.log('i fired!')
+            let playlistCopy = Object.assign({}, currentPlaylist)
+            playlistCopy.playlistArr.splice(idx, 1)
+            console.log('playlist copy is ', playlistCopy)
+            dispatch(removeTrackThunk(playlistCopy))
+          }
       }
   }
 

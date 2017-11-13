@@ -5,6 +5,7 @@ import history from '../history'
  * ACTION TYPES
  */
 const FETCH_PLAYLIST = 'FETCH_PLAYLIST'
+const REMOVE_TRACK = 'REMOVE_TRACK'
 
 /**
  * INITIAL STATE
@@ -15,7 +16,7 @@ const playlist = {}
  * ACTION CREATORS
  */
 export const fetchPlaylistActionCreator = fetchedPlaylist => ({type: FETCH_PLAYLIST, playlist: fetchedPlaylist})
-
+export const removeTrackActionCreator = updatedPlaylist => ({type: REMOVE_TRACK, playlist: updatedPlaylist})
 
 /**
  * THUNK CREATORS
@@ -41,12 +42,19 @@ dispatch => {
     })
 }
 
+export const removeTrackThunk = updatedPlaylist =>
+dispatch => {
+    dispatch(removeTrackActionCreator(updatedPlaylist))
+}
+
 /**
  * REDUCER
  */
 export default function (state = playlist, action) {
     switch (action.type) {
         case FETCH_PLAYLIST:
+            return action.playlist
+        case REMOVE_TRACK:
             return action.playlist
         default:
             return state

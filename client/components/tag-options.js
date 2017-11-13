@@ -96,6 +96,7 @@ class TagOptions extends Component {
             return (
                 <div>
                     <h1>Get the vibe right...</h1>
+                    <h3>Pick up to 5 qualities that especially fit the vibe you want.</h3>
                     <div>
                         {
                             this.state.choosingTags.length ? (
@@ -111,7 +112,6 @@ class TagOptions extends Component {
                             )
                         })}
                     </div>
-                    <h3>Pick up to 5 qualities that especially fit the vibe you want.</h3>
                     <h4>Remove any qualities you don't necessarily want.</h4>
                     {
                         this.state.tooMany ? 
