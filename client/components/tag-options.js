@@ -7,7 +7,7 @@ import history from '../history'
 import { chooseTagsThunk } from '../store/chosen-tags'
 import { fetchPlaylistThunk } from '../store/playlist'
 import { possibleSongsThunk } from '../store/possible-songs'
-import { tagOptionsThunk, setTrackThunk } from '../store'
+import { tagOptionsThunk, setTrackThunk, removeTagOptionThunk } from '../store'
 
 /**
  * COMPONENT
@@ -16,12 +16,13 @@ import { tagOptionsThunk, setTrackThunk } from '../store'
  *  rendered out by the component's `children`.
  */
 class TagOptions extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             choosingTags: [],
             tooMany: false,
-            notEnough: true
+            notEnough: true,
+            deletedTooMany: false
         }
         this.handleClick = this.handleClick.bind(this)
     }
@@ -86,8 +87,9 @@ class TagOptions extends Component {
         if (+this.props.tagsAvail > 1){
             return (
                 <div>
-                    <h1>Set the Mood...</h1>
-                    <h3>Pick up to 5 qualities that set the right mood...</h3>
+                    <h1>Get the vibe right...</h1>
+                    <h3>Pick up to 5 qualities that especially fit the vibe you want.</h3>
+                    <h4>Remove any qualities you don't necessarily want.</h4>
                     {
                         this.state.tooMany ? 
                         (<div> You can only choose 5! </div>)
@@ -100,12 +102,29 @@ class TagOptions extends Component {
                         :
                         <button onClick={e => this.props.handleSubmit(e, this.state.choosingTags, this.props.tagOptions, this.props.chosenTrack.artist, this.props.chosenTrack.track)}>Set the mood!</button>
                     }
+                    {
+                        this.state.deletedTooMany ? (
+                            <div>
+                                You must leave at least 5 qualities!
+                            </div>
+                        )
+                        : null
+                    }
                     <div>
                         {this.props.tagOptions.map((tag, i) => {
                             return (
-                                <div key={i} onClick={e => this.handleClick(e, tag.name)}>
-                                    {tag.name}
-                                </div>
+                                <div key={i}>
+                                    <div onClick={e => this.handleClick(e, tag.name)}>
+                                        {tag.name}
+                                    </div>
+                                <button key={i + 'a'}onClick={
+                                    (this.props.tagOptions.length > 5) ? (
+                                    (e) => this.props.handleRemoveTagOption(this.props.tagOptions, i)
+                                    ) :
+                                    ((e) => this.setState({deletedTooMany: true}))}
+                                    disabled={this.state.deletedTooMany}
+                                    >remove</button> 
+                                </div>                              
                             )
                         })}
                     </div>
@@ -159,6 +178,13 @@ const mapState = (state) => {
             dispatch(setTrackThunk(artist, track))
             dispatch(tagOptionsThunk(track, artist))
             history.push('/tagoptions')
+        },
+        handleRemoveTagOption: (oldOptions, tagIdx) => {
+            let newOptions = oldOptions.slice()
+            console.log(newOptions.length)
+            newOptions.splice(tagIdx, 1)
+            console.log(newOptions.length)
+            dispatch(removeTagOptionThunk(newOptions))
         }
       }
   }

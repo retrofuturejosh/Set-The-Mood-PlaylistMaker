@@ -5,6 +5,7 @@ import history from '../history'
  * ACTION TYPES
  */
 const GET_TAG_OPTIONS = 'GET_TAG_OPTIONS'
+const REMOVE_TAG_OPTION = 'REMOVE_TAG_OPTION'
 
 
 /**
@@ -16,6 +17,7 @@ const tagOptions = []
  * ACTION CREATORS
  */
 const getTagOptions = fetchedTags => ({type: GET_TAG_OPTIONS, tags: fetchedTags})
+const removeTagOption = newTagOptions => ({type: REMOVE_TAG_OPTION, tags: newTagOptions})
 
 /**
  * THUNK CREATORS
@@ -28,6 +30,10 @@ export const tagOptionsThunk = (songName, artistName) =>
         })
         .catch(err => console.log(err))
     }
+ export const removeTagOptionThunk = newTags =>
+    dispatch => {
+        dispatch(removeTagOption(newTags))
+    }
 
 /**
  * REDUCER
@@ -35,6 +41,8 @@ export const tagOptionsThunk = (songName, artistName) =>
 export default function (state = tagOptions, action) {
     switch (action.type) {
         case GET_TAG_OPTIONS:
+            return action.tags
+        case REMOVE_TAG_OPTION:
             return action.tags
         default:
             return state
