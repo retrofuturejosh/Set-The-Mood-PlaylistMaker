@@ -25,6 +25,7 @@ class TagOptions extends Component {
             deletedTooMany: false
         }
         this.handleClick = this.handleClick.bind(this)
+        this.removeFromChosen = this.removeFromChosen.bind(this)
     }
 
     handleClick (e, tagName) {
@@ -50,6 +51,13 @@ class TagOptions extends Component {
                 this.setState({tooMany: true})
             }
         }
+    }
+
+    removeFromChosen (e, i) {
+        let currentlyChosen = this.state.choosingTags.slice()
+        currentlyChosen.splice(i, 1)
+        this.setState({choosingTags: currentlyChosen}
+        )
     }
 
 
@@ -88,6 +96,21 @@ class TagOptions extends Component {
             return (
                 <div>
                     <h1>Get the vibe right...</h1>
+                    <div>
+                        {
+                            this.state.choosingTags.length ? (
+                                <h3>I'm looking for:</h3>
+                            ) : null
+                        }
+                        {this.state.choosingTags.map((tag, i) => {
+                            return (
+                                <div key ={i}>
+                                    {tag}
+                                    <button onClick={(e) => this.removeFromChosen(e, i)}> x </button>
+                                </div>
+                            )
+                        })}
+                    </div>
                     <h3>Pick up to 5 qualities that especially fit the vibe you want.</h3>
                     <h4>Remove any qualities you don't necessarily want.</h4>
                     {
@@ -125,16 +148,6 @@ class TagOptions extends Component {
                                     disabled={this.state.deletedTooMany}
                                     >remove</button> 
                                 </div>                              
-                            )
-                        })}
-                    </div>
-                    <div>
-                        <h3>I'm looking for...</h3>
-                        {this.state.choosingTags.map((tag, i) => {
-                            return (
-                                <div key ={i}>
-                                    {tag}
-                                </div>
                             )
                         })}
                     </div>

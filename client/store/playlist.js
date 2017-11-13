@@ -31,7 +31,9 @@ dispatch => {
         queryStr += `tag${i+1}=${tag}&`
     })
     for (let i = 1; i < 10; i++){
+        if (tagOptions[i]){
         queryStr += `moretags${i}=${tagOptions[i].name}&`
+        }
     }
     return axios.get(`/api/playlist/${queryStr.slice(0, queryStr.length-1)}`)
     .then(res => {
