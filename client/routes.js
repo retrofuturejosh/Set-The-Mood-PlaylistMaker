@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import history from './history'
 import {Landing, TagOptions, Playlist} from './components'
 import {me} from './store'
+import NavBar from './components/nav-bar'
 
 /**
  * COMPONENT
@@ -16,6 +17,9 @@ class Routes extends Component {
     const {isLoggedIn} = this.props
 
     return (
+      <div id="global">
+        <NavBar />
+        <div id="main">
       <Router history={history}>
         <Switch>
           <Route path="/tagoptions" component={TagOptions}/>
@@ -23,6 +27,8 @@ class Routes extends Component {
           <Route path="/" component={Landing}/>
         </Switch>
       </Router>
+      </div>
+      </div>
     )
   }
 }
@@ -30,15 +36,15 @@ class Routes extends Component {
 /**
  * CONTAINER
  */
-// const mapState = (state) => {
-//   return {
-//     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
-//     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-//     isLoggedIn: !!state.user.id
-//   }
-// }
+const mapState = (state) => {
+  return {
+    // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
+    // Otherwise, state.user will be an empty object, and state.user.id will be falsey
+    isLoggedIn: !!state.user.id
+  }
+}
 
-export default connect()(Routes)
+export default connect(mapState)(Routes)
 
 /**
  * PROP TYPES

@@ -56,8 +56,10 @@ class TagOptions extends Component {
     removeFromChosen (e, i) {
         let currentlyChosen = this.state.choosingTags.slice()
         currentlyChosen.splice(i, 1)
-        this.setState({choosingTags: currentlyChosen}
-        )
+        if (this.state.choosingTags.length === 1) this.setState({
+            notEnough: true
+        })
+        this.setState({choosingTags: currentlyChosen})
     }
 
 
@@ -94,59 +96,73 @@ class TagOptions extends Component {
         }
         if (+this.props.tagsAvail > 1){
             return (
-                <div>
-                    <h1>Get the vibe right...</h1>
-                    <h3>Pick up to 5 qualities that especially fit the vibe you want.</h3>
-                    <div>
+                <div id="options-div">
+                        <button id={this.state.notEnough ? "chose-tags-disable" : "chose-tags"}
+                        disabled={this.state.notEnough}
+                        onClick={e => this.props.handleSubmit(e, this.state.choosingTags, this.props.tagOptions, this.props.chosenTrack.artist, this.props.chosenTrack.track)}>VIBE!</button>
                         {
                             this.state.choosingTags.length ? (
-                                <h3>I'm looking for:</h3>
+                                <div className="center-text">
+                                <h3>main vibez are...</h3>
+                                </div>
                             ) : null
                         }
+                    <div className="tag-holder">
                         {this.state.choosingTags.map((tag, i) => {
                             return (
-                                <div key ={i}>
-                                    {tag}
-                                    <button onClick={(e) => this.removeFromChosen(e, i)}> x </button>
+                                <div 
+                                className="taga" key ={i}>
+                                    <div>
+                                        {tag.toLowerCase()}
+                                    </div>
+                                    <button 
+                                    className="remove-button"
+                                    onClick={
+                                        (e) => this.removeFromChosen(e, i)}> x </button>
                                 </div>
                             )
                         })}
                     </div>
-                    <h4>Remove any qualities you don't necessarily want.</h4>
+                    <div id="directions">
+                    <h3>pick 1 - 5 qualities that especially fit the vibe</h3>
+                    <h4>remove any qualities that don't vibe</h4>
+                    </div>
                     {
                         this.state.tooMany ? 
-                        (<div> You can only choose 5! </div>)
+                        (<div> you can only choose 5 </div>)
                         :
                         null
                     }
                     {
-                        this.state.notEnough ? 
-                        (<div> You must choose at least one tag! </div>)
-                        :
-                        <button onClick={e => this.props.handleSubmit(e, this.state.choosingTags, this.props.tagOptions, this.props.chosenTrack.artist, this.props.chosenTrack.track)}>Set the mood!</button>
-                    }
-                    {
                         this.state.deletedTooMany ? (
                             <div>
-                                You must leave at least 5 qualities!
+                                you must leave at least 5 qualities
                             </div>
                         )
                         : null
                     }
-                    <div>
+                    <div className="tag-holder">
                         {this.props.tagOptions.map((tag, i) => {
                             return (
-                                <div key={i}>
+                                <div className={(this.state.choosingTags.includes(this.props.tagOptions[i].name)) ? "chosentag" : "tag"} key={i}>
                                     <div onClick={e => this.handleClick(e, tag.name)}>
-                                        {tag.name}
+                                        {tag.name.toLowerCase()}
                                     </div>
-                                <button key={i + 'a'}onClick={
+                                    {
+                                        (this.state.choosingTags.includes(this.props.tagOptions[i].name)) ? 
+                                        null :
+                                <button 
+                                className={"remove-button"}
+                                key={i + 'a'}
+                                onClick={
                                     (this.props.tagOptions.length > 5) ? (
                                     (e) => this.props.handleRemoveTagOption(this.props.tagOptions, i)
                                     ) :
                                     ((e) => this.setState({deletedTooMany: true}))}
-                                    disabled={this.state.deletedTooMany}
-                                    >remove</button> 
+                                    disabled={this.state.deletedTooMany}>
+                                    x
+                                    </button> 
+                                        }
                                 </div>                              
                             )
                         })}
@@ -156,8 +172,8 @@ class TagOptions extends Component {
         } else {
             return (
                 <div>
-                    <h1>Set the Mood...</h1>
-                    <h3>Gathering info about that song. Hold on to your butts, we'll get the mood right soon.</h3>
+                    {/* <h1>VIBING!</h1> */}
+                    {/* <h3>Gathering info about that song. Hold on to your butts, we'll get the mood right soon.</h3> */}
                 </div>
             )
         }

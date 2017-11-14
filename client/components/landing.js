@@ -21,17 +21,18 @@ class Landing extends Component {
         console.log(this.props)
         return (
             <div>
-                <h1>Get the vibe right...</h1>
                 <div>
-                    <form onSubmit={e => this.props.handleSubmit(e)}>
-                        <h3>What song best fits the vibe you want?</h3>
-                        Song Name: <input type="text" name="song"/>
-                        <br/>
-                        <br/>
-                        Artist: <input type="text" name="artist"/>
-                        <br/>
-                        <br/>
-                        <button type="submit">Get the mood right</button>
+                    <form className="form" onSubmit={e => this.props.handleSubmit(e)}>
+                        <div className="line">
+                        <h3>what song best fits the vibe you want?</h3>
+                        song: <input className="input" type="text" name="song"/>
+                        </div>
+                        <div className="line">
+                        artist: <input type="text" className="input"name="artist"/>
+                        </div>
+                        <div className="line">
+                        <button id="entersong" type="submit">SET VIBES</button>
+                        </div>
                     </form>
                 </div>
             </div>

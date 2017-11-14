@@ -1,5 +1,19 @@
+// * {
+//   background: rgba(211, 211, 211, 0)
+// }
+
+h3, h4, h2, tr, th {
+  font-weight: normal;
+}
+
 body {
   font-family: sans-serif;
+  background-color: rgb(31, 31, 31);
+  color: white;
+
+  h3, h4, h2, tr, th {
+    font-weight: normal;
+  }
 
   a {
     text-decoration: none;
@@ -18,4 +32,439 @@ body {
     margin: 1em;
     display: inline-block;
   }
+}
+
+#main {
+  display: flex;
+  width: 90%;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0)
+}
+
+.input {
+  width: 100%;
+  font-size: 25px
+}
+
+.form form {
+  background: rgba(255, 255, 255, 0)
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0)
+}
+
+.line {
+  width: 100%;
+  flex-direction: row;
+}
+
+#entersong {
+  display: flex;
+  margin-left: 50%;
+  margin-right: 50%;
+  justify-content: center;
+  flex-direction: row;
+  width: 50%;
+  height: 50px;
+  margin-left: 25%;
+  padding: 0 25px 0 25px;
+  text-align: center;
+  background-color: white;
+  font-size: 20px;
+
+  text-shadow: 
+  0 6px 1px rgba(113, 113, 113, 0.043),
+  0 0 5px rgba(126, 126, 126, 0.043),
+  0 1px 3px rgba(114, 114, 114, 0.16),
+  0 2px 4px rgba(116, 116, 116, 0.119),
+  0 2px 5px rgba(125, 125, 125, 0.16),
+  0 5px 5px rgba(130, 130, 130, 0.091),
+  0 10px 10px rgba(114, 114, 114, 0.077);
+  border-radius: 10px;
+  border-width: 2px;
+  border-color: black;
+}
+
+#entersong button {
+  display: flex;
+  text-align: center;
+  margin-left: 50%;
+  margin-right: 50%;
+  justify-content: center;
+  border-radius: 20px;
+
+}
+
+#entersong:hover {
+  background-color: hsl(213, 100%, 50%);
+  box-shadow: inset 0px 0px 5px -1px #000000, 
+  inset 0px 0px 42px -10px #A5A5A5;
+  color: white;
+  text-shadow: 
+  0 6px 1px rgba(113, 113, 113, 0.043),
+  0 0 5px rgba(126, 126, 126, 0.043),
+  0 1px 3px rgba(114, 114, 114, 0.16),
+  0 2px 4px rgba(116, 116, 116, 0.119),
+  0 2px 5px rgba(125, 125, 125, 0.16),
+  0 5px 5px rgba(130, 130, 130, 0.091),
+  0 10px 10px rgba(114, 114, 114, 0.077);
+
+}
+
+#navbar {
+  width: 98%;
+  display: flex;
+  height: 80px;
+  justify-content: center;
+  background-color: #0072ff;
+  // background: #1e5799; /* Old browsers */
+  // background: -moz-linear-gradient(left, #1e5799 0%, #0072ff 9%, #0072ff 27%, #0072ff 47%, #0072ff 64%, #0072ff 91%, #1e57993e 100%); /* FF3.6-15 */
+  // background: -webkit-linear-gradient(left, #1e5799 0%,#0072ff 9%,#0072ff 27%,#0072ff 47%,#0072ff 64%,#0072ff 91%,#1e579930 100%); /* Chrome10-25,Safari5.1-6 */
+  // background: linear-gradient(to right, #1e5799 0%,#0072ff 9%,#0072ff 27%,#0072ff 47%,#0072ff 64%,#0072ff 91%,#1e579930 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#1e5799',GradientType=0 );
+  box-shadow: 2px 2px 6px -8px #30271F, 
+  0px 3px 6px -8px rgba(113, 92, 118, 0.077), 
+  0px 3px 3px 4px rgba(204, 204, 204, 0.071),
+  0px 5px 4px 6px rgba(204, 204, 204, 0.071),
+  0px 7px 3px 6px rgba(204, 204, 204, 0.112);
+  border-radius: 10px
+}
+
+
+#navbar h1 {
+  letter-spacing: 10px;
+  color: white;
+  font-size: 40px;
+  margin-bottom: 70px;
+  text-shadow: 0 1px 0 #ccc,
+  0 1px 0 #ccc,
+  0 2px 0 #ccc,
+  0 3px 0 #ccc,
+  0 4px 0 #ccc,
+  -75px -30px 0px rgba(204, 204, 204, 0.05),
+  
+              -55px -20px 0px rgba(204, 204, 204, 0.139),
+          -30px -10px 0px rgba(204, 204, 204, 0.235),
+          
+
+            // 3px 4px 0 rgba(131, 131, 131, 0.557),
+              //  1px 3px 0 rgba(131, 131, 131, 0.557),
+              //  0 4px 0 #787878,
+              //  0 5px 0 rgb(125, 125, 125),
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgb(0, 0, 0),
+               0 3px 5px rgb(0, 0, 0),
+               0 5px 10px rgb(0, 0, 0),
+               0 10px 10px rgb(0, 0, 0),
+               10px 10px 20px rgb(109, 109, 109);
+}
+
+
+input {
+  background-color: white;
+
+  margin: 5px
+}
+
+#options-div {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center
+}
+
+#chose-tags{
+  width: 50%;
+  height: 50px;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 25px -8px #30271F, 
+  0px 0px 25px -2px rgba(250, 252, 210, 0.119), 
+  0px 3px 16px 2px rgba(254, 249, 210, 0.139);
+  font-size: 20px;
+  text-shadow: 
+  0 6px 1px rgba(113, 113, 113, 0.043),
+  0 0 5px rgba(126, 126, 126, 0.043),
+  0 1px 3px rgba(114, 114, 114, 0.16),
+  0 2px 4px rgba(116, 116, 116, 0.119),
+  0 2px 5px rgba(125, 125, 125, 0.16),
+  0 5px 5px rgba(130, 130, 130, 0.091),
+  0 10px 10px rgba(114, 114, 114, 0.077);
+  border-width: 2px;
+  border-style: solid;
+  border-color: black;
+}
+
+#chose-tags-disable{
+  width: 50%;
+  height: 50px;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border-width: 2px;
+  color: lightgray;
+    box-shadow: 5px 5px 25px -8px #30271F, 
+  0px 0px 95px -30px rgb(113, 92, 118), 
+}
+
+#chose-tags:hover {
+  background-color: hsl(213, 100%, 50%);
+  color: white
+}
+
+#options-div h3 h4 {
+  margin: 0
+}
+
+.tag-holder {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap
+}
+
+.tag-holder div {
+  border-style: solid;
+  border-width: 2px;
+  border-color: black
+}
+
+.tag, .taga {
+  padding: 5px;
+  margin: 10px;
+  background-color: hsl(213, 100%, 50%);
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: darkgray;
+  // box-shadow: 5px 5px 25px -8px #30271F, 
+  // 0px 0px 50px -30px rgb(113, 92, 118), 
+  // 0px 5px 33px 16px #CCCCCC;
+  display: flex;
+  font-size: 25px;
+  color: white;
+  text-shadow: 0 1px 0 #ccc,
+  1px 2px 0 rgb(0, 0, 0),
+  0 2px 0 #6c6c6c,
+  0 3px 0 rgb(131, 131, 131),
+  0 4px 0 #787878,
+  0 5px 0 rgb(111, 111, 111),
+  0 6px 1px rgba(0,0,0,.1),
+  0 0 5px rgba(0,0,0,.1),
+  0 1px 3px rgba(0,0,0,.3),
+  0 3px 5px rgba(0,0,0,.2),
+  0 5px 10px rgba(0,0,0,.25),
+  0 10px 10px rgba(0,0,0,.2),
+  0 20px 20px rgba(0,0,0,.15);
+}
+
+.tag:hover {
+  background-color: white;
+  color: hsl(213, 100%, 50%);
+  text-shadow: 
+  0 6px 1px rgba(113, 113, 113, 0.043),
+  0 0 5px rgba(126, 126, 126, 0.043),
+  0 1px 3px rgba(114, 114, 114, 0.16),
+  0 2px 4px rgba(116, 116, 116, 0.119),
+  0 2px 5px rgba(125, 125, 125, 0.16),
+  0 5px 5px rgba(130, 130, 130, 0.091),
+  0 10px 10px rgba(114, 114, 114, 0.077);
+}
+
+.tag div, .taga div {
+  width: 150px;
+  height: 75px;
+  border-width: 0px
+}
+
+.chosentag div, .chosentaga div {
+  width: 150px;
+  height: 75px;
+  border-width: 0px
+}
+
+.chosentag {
+  background-color: white;
+  padding: 5px 25px 5px 5px;
+  margin: 10px;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: darkgray;
+  // box-shadow: 5px 5px 25px -8px #30271F, 
+  // 0px 0px 50px -30px rgb(113, 92, 118), 
+  // 0px 5px 33px 16px #CCCCCC;
+  display: flex;
+  font-size: 25px;
+  background-color: white;
+  color: hsl(213, 100%, 50%);
+  text-shadow: 
+  0 6px 1px rgba(113, 113, 113, 0.043),
+  0 0 5px rgba(126, 126, 126, 0.043),
+  0 1px 3px rgba(114, 114, 114, 0.16),
+  0 2px 4px rgba(116, 116, 116, 0.119),
+  0 2px 5px rgba(125, 125, 125, 0.16),
+  0 5px 5px rgba(130, 130, 130, 0.091),
+  0 10px 10px rgba(114, 114, 114, 0.077);
+}
+
+.remove-button {
+  background-color: white;
+  padding: 0 0 25px 0;
+  margin: 0;
+  height: 25px;
+  width: 25px;
+  font-weight: bolder;
+  border-color: black;
+  border-width: 0px;
+  font-size: 20px;
+  border-radius: 5px;
+  border-width: 1px;
+  justify-content: center;
+}
+
+
+.remove-button:hover {
+  background-color: red
+}
+
+#global {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap
+}
+
+#directions {
+  text-align: center
+}
+
+#options-div {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap
+}
+
+.center-text {
+  text-align: center;
+}
+
+#player {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#player div {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.left, .left th {
+  text-align: left
+}
+
+.flex-center div, .flex-center {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.hard-center {
+  position: fixed;
+  margin-left: 40%;
+  margin-right: 60%
+
+}
+
+#loading {
+  margin-top: 75px;
+  width: 75%
+}
+
+th {
+  background-color: #d3d3d345;
+  border-radius: 5px;
+  font-weight: lighter;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: center;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+.row th {
+  text-align: left;
+  font-weight: lighter;
+}
+
+table {
+  width: 85%;
+  padding-left: 15%;
+  font-weight: lighter;
+  margin-top: 15px;
+}
+
+th:hover {
+  background-color: white;
+  color: black;
+  font-weight: lighter;
+}
+
+.left th {
+  text-align: left;
+  font-weight: lighter;
+}
+
+.leftselect, .leftselect th {
+  background-color: white;
+  color: black;
+  text-align: left;
+  font-weight: lighter;
+}
+
+.left th:hover {
+  background-color: white;
+  color: black;
+}
+
+.hover-red:hover {
+  background-color: red;
+  color: white;
+}
+
+#player {
+  margin-top: 8px;
+}
+
+.control {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+div.control {
+  border-radius: 5px;
+}
+
+.control {
+  margin-top: 25%;
+  margin-top: 22%;
+  height: 25px;
+  padding: 10px;
+  background-color: #d3d3d34a;
+}
+
+.control:hover {
+  margin-top: 22%;
+  height: 25px;
+  padding: 10px;
+  color: black;
+  background-color: white;
 }
