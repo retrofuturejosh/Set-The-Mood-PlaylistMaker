@@ -21,7 +21,9 @@ class NavBar extends Component {
     return (
       <div id="navbar">
           {/* <ReactRevealText className="navbar">VIBEZ</ReactRevealText> */}
-        {<h1 onClick={e => this.handClick(e)}>VIBEZ</h1>}
+          <div>
+        {<h1 id="navmargin" onClick={e => this.handClick(e)}>VIBEZ</h1>}
+          </div>
       </div>
     )
   }
