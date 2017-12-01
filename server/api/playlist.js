@@ -7,7 +7,7 @@ const fetch = require('node-fetch');
 const youTubeSearch = require('youtube-search')
 const secrets = require('../../secrets')
 
-const APIKEY = secrets.googleKey
+const APIKEY = process.env.google || secrets.googleKey
 
 const youTubeOpts  = {
     maxResults: 10,

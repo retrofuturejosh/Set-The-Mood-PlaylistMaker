@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 const secrets = require('../../secrets')
 var stringSimilarity = require('string-similarity');
 
-const key = secrets.lastFMKey
+const key = process.env.lastFM || secrets.lastFMKey
 
 const googleQueryURL = 'http://suggestqueries.google.com/complete/search?output=toolbar&hl=en&q=' //then the term
 
