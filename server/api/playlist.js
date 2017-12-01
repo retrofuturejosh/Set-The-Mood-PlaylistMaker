@@ -5,20 +5,19 @@ const fetchSimilar = require('./starting').fetchSimilarSongs
 const stringSimilarity = require('string-similarity');
 const fetch = require('node-fetch');
 const youTubeSearch = require('youtube-search')
+const secrets = require('../../secrets')
 
-const gKey = 'AIzaSyAVWqUYIJaHLlUINxsq-T4j1CAXMWHee2I'
-const APIKEY = gKey
+const APIKEY = secrets.googleKey
 
 const youTubeOpts  = {
     maxResults: 10,
-    key: gKey
+    key: APIKEY
   };
 
 module.exports = router
 
 router.get('/', (req, res, next) => {
     let finalPlaylist = []
-    console.log('!!!!!! REQ QUERY IS ', req.query)
     let tagsArr = []
     let chosenTags = []
     for (tag in req.query){
@@ -82,7 +81,6 @@ router.get('/', (req, res, next) => {
         let finalMatchOptions = trackOptions.sort((a, b) => {
             return b.matchStrength - a.matchStrength
         })
-        // console.log(finalMatchOptions)
         let sameArtistCheck = {}
         let songCheck = []
         let finalMatches = []

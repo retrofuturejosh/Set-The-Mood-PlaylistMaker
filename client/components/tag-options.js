@@ -64,7 +64,6 @@ class TagOptions extends Component {
 
 
     render() {
-        console.log(this.state)
         if (this.props.tagOptions[0] === 'NOT FOUND' && !this.props.possibleSongs.length) {
             this.props.handleNotFound(`${this.props.chosenTrack.artist} ${this.props.chosenTrack.track}`)
         }
@@ -209,9 +208,7 @@ const mapState = (state) => {
         },
         handleRemoveTagOption: (oldOptions, tagIdx) => {
             let newOptions = oldOptions.slice()
-            console.log(newOptions.length)
             newOptions.splice(tagIdx, 1)
-            console.log(newOptions.length)
             dispatch(removeTagOptionThunk(newOptions))
         }
       }

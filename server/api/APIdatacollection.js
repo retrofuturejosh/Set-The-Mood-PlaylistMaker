@@ -19,7 +19,6 @@ let potentialMatches = []
 let getTagsPromise = fetchTags(artist, chosenSong, 10)
 
 let potentialMatchesPromise = getTagsPromise.then(results => {
-    console.log(results)
     return tagsToPopulate(...results)
 })
 .then(songPromises => {
@@ -59,5 +58,4 @@ let potentialMatchesPromise = getTagsPromise.then(results => {
     potentialMatches = songs.sort((a, b) => {
         return b.numTagMatches - a.numTagMatches
     })
-    // console.log(potentialMatches.slice(0, 25))
 })

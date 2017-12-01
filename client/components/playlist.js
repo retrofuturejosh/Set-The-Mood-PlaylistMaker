@@ -36,7 +36,6 @@ class Playlist extends Component {
       }
 
     getVideo () {
-        console.log('getting video ', this.state)
         if (+this.state.videoToggle < 50){
             this.setState({videoToggle: +this.state.videoToggle + 1})
         }
@@ -49,7 +48,7 @@ class Playlist extends Component {
     }
 
     handleKeyPress(e) {
-        console.log(e.key)
+
     }
     
 
@@ -69,7 +68,6 @@ class Playlist extends Component {
           };
 
 
-        console.log(this.state)
         const opts = {
             height: '390',
             width: '640',
@@ -168,10 +166,8 @@ const mapState = (state) => {
             history.push('/tagoptions')
         },
         removeTrack (e, currentPlaylist, idx) {
-            console.log('i fired!')
             let playlistCopy = Object.assign({}, currentPlaylist)
             playlistCopy.playlistArr.splice(idx, 1)
-            console.log('playlist copy is ', playlistCopy)
             dispatch(removeTrackThunk(playlistCopy))
           }
       }

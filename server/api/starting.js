@@ -1,7 +1,8 @@
 const fetch = require('node-fetch');
+const secrets = require('../../secrets')
 var stringSimilarity = require('string-similarity');
 
-const key = '7f90381d161b96c5c9ab23371d5cc781'
+const key = secrets.lastFMKey
 
 const googleQueryURL = 'http://suggestqueries.google.com/complete/search?output=toolbar&hl=en&q=' //then the term
 
@@ -28,7 +29,6 @@ const findSongTwo = '&api_key=' + key + '&format=json'
 
 function fetchTrackInfo(artist, track){
     const fetchInfoAPIURL = fetchInfoOne + artist + fetchInfoTwo + track + fetchInfoThree
-    console.log(fetchInfoAPIURL, 'comare with http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=7f90381d161b96c5c9ab23371d5cc781&artist=cher&track=believe&format=json', )
     return fetch(fetchInfoAPIURL)
     .then(res => res.json())
     .then(body => {
@@ -98,7 +98,6 @@ function fetchTags(artistName, trackName, num){
                         checkThese.forEach(tag => {
                             let similarity = stringSimilarity.compareTwoStrings(body.toptags.tag[i].name, tag.name);
                             if (similarity > 0.69){
-                                // console.log(`similarity between ${body.toptags.tag[i].name} & ${tag.name} is ${similarity}`)                                
                                 flag = true
                             }
                         })
@@ -160,73 +159,6 @@ module.exports = {
     findSong,
     fetchSongsByTag
 }
-
-
-
-
-//TESTING THE FUNCTIONS
-
-// const artist = 'don maclean'
-// const song = "american pie"
-
-
-// findSong('britney spear toxic')
-
-// let googlePromise = googleQuery('brtny')
-// googlePromise.then(result => console.log(result))
-
-
-// searchForArtist(artist)
-// .then(artists => {
-//     console.log(artists)
-// })
-
-// let potentialMatches = []
-// let tags = []
-
-
-// let retrieveTagsPromise = fetchTags(artist, song, 4)
-
-
-// let createdTagPromises
-
-// let songsMatchedByTag = retrieveTagsPromise.then(tags => {
-//     return tagsToPopulate(tags)
-// })
-// .then(tagPromises => {
-//     return Promise.all(tagPromises)
-// })
-// .then(songs => {
-//     potentialMatches = potentialMatches.concat(...songs)
-//     return songs
-// })
-
-
-// songsMatchedByTag.then(songs => {
-//     return fetchSimilarSongs(artist, song)
-// })
-// .then(moreMatches => {
-//     potentialMatches = potentialMatches.concat(moreMatches)
-//     return potentialMatches
-// })
-// .then(potentialMatches => {
-//     return potentialMatches.map(song => {
-//         return fetchTags(song.artist, song.name, 10)
-//         .then(tags => {
-//             song.tagsArr = tags
-//             return song
-//         })
-//     })
-// })
-// .then(songsPromises => {
-//     return Promise.all(songsPromises)
-// })
-// .then(songs => {
-//     potentialMatches = songs
-//     console.log(potentialMatches)
-//     return potentialMatches
-// })
-
 
 
 
