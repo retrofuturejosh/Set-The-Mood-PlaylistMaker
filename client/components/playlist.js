@@ -9,12 +9,6 @@ import ReactRevealText from 'react-reveal-text'
 
 import { tagOptionsThunk, removeTrackThunk } from '../store'
 
-/**
- * COMPONENT
- *  The Main component is our 'picture frame' - it displays the navbar and anything
- *  else common to our entire app. The 'picture' inside the frame is the space
- *  rendered out by the component's `children`.
- */
 class Playlist extends Component {
     constructor() {
         super()
@@ -141,14 +135,12 @@ class Playlist extends Component {
         )
     }
     _onReady(event) {
-        // access to player in all event handlers via event.target
         if (!this.state.started){
             event.target.pauseVideo();
             this.setState({started: true})
         }
       }
       _onRemove(event) {
-        // access to player in all event handlers via event.target
         if (!this.state.started){
             event.target.pauseVideo();
         }
@@ -180,7 +172,4 @@ const mapState = (state) => {
   }
 
 
-
-// The `withRouter` wrapper makes sure that updates are not blocked
-// when the url changes
 export default withRouter(connect(mapState, mapDispatch)(Playlist))

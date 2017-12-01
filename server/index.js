@@ -6,8 +6,6 @@ const compression = require('compression')
 const session = require('express-session')
 const passport = require('passport')
 const SequelizeStore = require('connect-session-sequelize')(session.Store)
-// const db = require('./db')
-// const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
@@ -30,28 +28,6 @@ passport.deserializeUser((id, done) =>
   db.models.user.findById(id)
     .then(user => done(null, user))
     .catch(done))
-
-// Use the SpotifyStrategy within Passport.
-//   Strategies in Passport require a `verify` function, which accept
-//   credentials (in this case, an accessToken, refreshToken, and spotify
-//   profile), and invoke a callback with a user object.
-// passport.use(new SpotifyStrategy({
-  // clientID: appKey,
-  // clientSecret: appSecret,
-  // callbackURL: 'http://localhost:8888/callback'
-  // },
-  // function(accessToken, refreshToken, profile, done) {
-  //   // asynchronous verification, for effect...
-  //   process.nextTick(function () {
-  //     // To keep the example simple, the user's spotify profile is returned to
-  //     // represent the logged-in user. In a typical application, you would want
-  //     // to associate the spotify account with a user record in your database,
-  //     // and return that user instead.
-  //     return done(null, profile);
-  //   });
-  // }));
-
-
 
 const createApp = () => {
   // logging middleware
@@ -106,23 +82,10 @@ const createApp = () => {
 }
 
 const startListening = () => {
-  // start listening (and create a 'server' object representing our server)
   const server = app.listen(PORT, () => console.log(`Mixing it up on port ${PORT}`))
-
-  // set up our socket control center
-  // const io = socketio(server)
-  // require('./socket')(io)
 }
 
-// const syncDb = () => db.sync()
-
-// This evaluates as true when this file is run directly from the command line,
-// i.e. when we say 'node server/index.js' (or 'nodemon server/index.js', or 'nodemon server', etc)
-// It will evaluate false when this module is required by another module - for example,
-// if we wanted to require our app in a test spec
 if (require.main === module) {
-  // sessionStore.sync()
-    // .then(syncDb)
     createApp()
     startListening()
 } else {

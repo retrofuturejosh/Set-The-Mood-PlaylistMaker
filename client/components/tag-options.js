@@ -9,12 +9,7 @@ import { fetchPlaylistThunk } from '../store/playlist'
 import { possibleSongsThunk } from '../store/possible-songs'
 import { tagOptionsThunk, setTrackThunk, removeTagOptionThunk } from '../store'
 
-/**
- * COMPONENT
- *  The Main component is our 'picture frame' - it displays the navbar and anything
- *  else common to our entire app. The 'picture' inside the frame is the space
- *  rendered out by the component's `children`.
- */
+
 class TagOptions extends Component {
     constructor(props) {
         super(props)
@@ -23,10 +18,12 @@ class TagOptions extends Component {
             tooMany: false,
             notEnough: true,
             deletedTooMany: false,
-            triedToFindSong: false
+            triedToFindSong: false,
+            possibilitySelected: false,
         }
         this.handleClick = this.handleClick.bind(this)
         this.removeFromChosen = this.removeFromChosen.bind(this)
+        this.chooseNewSong = this.chooseNewSong.bind(this)
     }
 
     componentDidMount () {
@@ -58,6 +55,11 @@ class TagOptions extends Component {
         }
     }
 
+    chooseNewSong(e, song, artist) {
+        this.setState({possibilitySelected: true})
+        this.props.handleNewSong(e, song, artist)
+    }
+
     removeFromChosen (e, i) {
         let currentlyChosen = this.state.choosingTags.slice()
         currentlyChosen.splice(i, 1)
@@ -69,7 +71,7 @@ class TagOptions extends Component {
 
 
     render() {
-        if (!this.props.possibleSongs.length && this.state.triedToFindSong) {
+        if ((!this.props.possibleSongs.length && this.state.triedToFindSong && !this.state.possibilitySelected) || (this.state.possibilitySelected && this.props.tagOptions[0] === 'NOT FOUND')) {
             return (
             <div id="sorry">
                 Sorry! Song not found!
@@ -93,7 +95,7 @@ class TagOptions extends Component {
                                     return (
                                         <div key={idx} 
                                             className="did-you-mean"
-                                            onClick={e => this.props.handleNewSong(e, song.track, song.artist)}>
+                                            onClick={e => this.chooseNewSong(e, song.track, song.artist)}>
                                         {song.track} - {song.artist}
                                     </div>
                                     )
@@ -154,7 +156,8 @@ class TagOptions extends Component {
                         {this.props.tagOptions.map((tag, i) => {
                             return (
                                 <div className={(this.state.choosingTags.includes(this.props.tagOptions[i].name)) ? "chosentag" : "tag"} key={i}>
-                                    <div onClick={e => this.handleClick(e, tag.name)}>
+                                    <div 
+                                        onClick={e => this.handleClick(e, tag.name)}>
                                         {tag.name.toLowerCase()}
                                     </div>
                                     {
@@ -180,10 +183,9 @@ class TagOptions extends Component {
             )
         } else {
             return (
-                <div>
-                    {/* <h1>VIBING!</h1> */}
-                    {/* <h3>Gathering info about that song. Hold on to your butts, we'll get the mood right soon.</h3> */}
-                </div>
+            <div id="sorry">
+                Gathering info!!
+            </div>
             )
         }
     }   
@@ -215,7 +217,8 @@ const mapState = (state) => {
         handleNewSong: (e, track, artist) => {
             dispatch(setTrackThunk(artist, track))
             dispatch(tagOptionsThunk(track, artist))
-            history.push('/tagoptions')
+            // history.push('/tagoptions')
+
         },
         handleRemoveTagOption: (oldOptions, tagIdx) => {
             let newOptions = oldOptions.slice()
@@ -225,8 +228,4 @@ const mapState = (state) => {
       }
   }
 
-
-
-// The `withRouter` wrapper makes sure that updates are not blocked
-// when the url changes
 export default withRouter(connect(mapState, mapDispatch)(TagOptions))

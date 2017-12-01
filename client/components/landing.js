@@ -6,12 +6,6 @@ import history from '../history'
 
 import { tagOptionsThunk, setTrackThunk } from '../store'
 
-/**
- * COMPONENT
- *  The Main component is our 'picture frame' - it displays the navbar and anything
- *  else common to our entire app. The 'picture' inside the frame is the space
- *  rendered out by the component's `children`.
- */
 class Landing extends Component {
     constructor() {
         super()
@@ -59,8 +53,5 @@ const mapState = (state) => {
   }
 
 
-
-// The `withRouter` wrapper makes sure that updates are not blocked
-// when the url changes
 export default withRouter(connect(mapState, mapDispatch)(Landing))
 
