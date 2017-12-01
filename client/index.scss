@@ -125,12 +125,12 @@ body {
   // background: -webkit-linear-gradient(left, #1e5799 0%,#0072ff 9%,#0072ff 27%,#0072ff 47%,#0072ff 64%,#0072ff 91%,#1e579930 100%); /* Chrome10-25,Safari5.1-6 */
   // background: linear-gradient(to right, #1e5799 0%,#0072ff 9%,#0072ff 27%,#0072ff 47%,#0072ff 64%,#0072ff 91%,#1e579930 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#1e5799',GradientType=0 );
-  box-shadow: 2px 2px 6px -8px #30271F, 
-  0px 3px 6px -8px rgba(113, 92, 118, 0.077), 
-  0px 3px 3px 4px rgba(204, 204, 204, 0.071),
-  0px 5px 4px 6px rgba(204, 204, 204, 0.071),
-  0px 7px 3px 6px rgba(204, 204, 204, 0.112);
-  border-radius: 10px
+  box-shadow: 1px 2px 5px -8px rgba(48, 39, 31, 0.084), 
+  // 0px 1px 4px -6px rgba(113, 92, 118, 0.036), 
+  0px 2px 5px 6px rgba(204, 204, 204, 0.071);
+  // 0px 4px 4px 6px rgba(204, 204, 204, 0.071);
+  // 0px 6px 3px 6px rgba(204, 204, 204, 0.071);
+  border-radius: 10px;
 }
 
 
@@ -508,4 +508,12 @@ h1#navmargin {
 
 div.line {
   margin-left: 0
+}
+
+#sorry {
+    margin-top: 10%;
+}
+
+.did-you-mean {
+  margin: 8px;
 }

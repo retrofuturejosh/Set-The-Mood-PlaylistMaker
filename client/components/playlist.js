@@ -27,18 +27,24 @@ class Playlist extends Component {
         this._onReady = this._onReady.bind(this)
         this._onRemove = this._onRemove.bind(this)
         this.handleKeyPress = this.handleKeyPress.bind(this)
+        this.timeOutGraphic = this.timeOutGraphic.bind(this)
     }
 
     componentDidMount() {
-        setTimeout(() => {
-          this.setState({ show: true });
-        }, 250);
+        if (!this.props.chosenTags.length) history.push('/')
+        this.timeOutGraphic()
       }
 
     getVideo () {
         if (+this.state.videoToggle < 50){
             this.setState({videoToggle: +this.state.videoToggle + 1})
         }
+    }
+
+    timeOutGraphic() {
+        setTimeout(() => {
+            this.setState({ show: true });
+          }, 250);
     }
 
     handleClick (e, i) {

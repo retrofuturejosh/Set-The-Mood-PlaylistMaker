@@ -22,10 +22,15 @@ class TagOptions extends Component {
             choosingTags: [],
             tooMany: false,
             notEnough: true,
-            deletedTooMany: false
+            deletedTooMany: false,
+            triedToFindSong: false
         }
         this.handleClick = this.handleClick.bind(this)
         this.removeFromChosen = this.removeFromChosen.bind(this)
+    }
+
+    componentDidMount () {
+        if (!this.props.chosenTrack.artist) history.push('/')
     }
 
     handleClick (e, tagName) {
@@ -64,7 +69,15 @@ class TagOptions extends Component {
 
 
     render() {
-        if (this.props.tagOptions[0] === 'NOT FOUND' && !this.props.possibleSongs.length) {
+        if (!this.props.possibleSongs.length && this.state.triedToFindSong) {
+            return (
+            <div id="sorry">
+                Sorry! Song not found!
+            </div>
+            )
+        }
+        else if (this.props.tagOptions[0] === 'NOT FOUND' && !this.props.possibleSongs.length) {
+            this.setState({triedToFindSong: true})
             this.props.handleNotFound(`${this.props.chosenTrack.artist} ${this.props.chosenTrack.track}`)
         }
         if (this.props.tagOptions[0] === 'NOT FOUND' && this.props.possibleSongs.length){
@@ -77,7 +90,10 @@ class TagOptions extends Component {
                         this.props.possibleSongs.length ? 
                             this.props.possibleSongs.map((song, idx) => {
                                 if (idx < 3) {
-                                    return (<div key={idx} onClick={e => this.props.handleNewSong(e, song.track, song.artist)}>
+                                    return (
+                                        <div key={idx} 
+                                            className="did-you-mean"
+                                            onClick={e => this.props.handleNewSong(e, song.track, song.artist)}>
                                         {song.track} - {song.artist}
                                     </div>
                                     )
@@ -87,11 +103,6 @@ class TagOptions extends Component {
                     }
                 </div>
             )
-        }
-        if (this.props.tagOptions[0] === 'NOT FOUND') {
-            <div>
-                Song not found!
-            </div>
         }
         if (+this.props.tagsAvail > 1){
             return (

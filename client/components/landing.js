@@ -30,7 +30,7 @@ class Landing extends Component {
                         artist: <input type="text" className="input"name="artist"/>
                         </div>
                         <div className="line">
-                        <button id="entersong" type="submit">SET VIBES</button>
+                        <button id="entersong" type="submit">SET VIBEZ</button>
                         </div>
                     </form>
                 </div>
