@@ -488,3 +488,12 @@ div.line {
 .did-you-mean {
   margin: 8px;
 }
+
+@media only screen and (max-width: 600px) {
+  html {
+    width: 100%;
+  }
+  #player {
+    width: 100%
+  }
+}
