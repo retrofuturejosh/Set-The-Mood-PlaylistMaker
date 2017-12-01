@@ -42,6 +42,7 @@ function fetchTrackInfo(artist, track){
 
 function findSong(searchTerm){
     let findSongAPIURL = findSongOne + searchTerm + findSongTwo
+    console.log('findSong API URL IS ', findSongAPIURL)
     return fetch(findSongAPIURL)
     .then(res => res.json())
     .then(body => {
