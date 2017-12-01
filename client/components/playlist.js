@@ -32,7 +32,7 @@ class Playlist extends Component {
     componentDidMount() {
         setTimeout(() => {
           this.setState({ show: true });
-        }, 500);
+        }, 250);
       }
 
     getVideo () {

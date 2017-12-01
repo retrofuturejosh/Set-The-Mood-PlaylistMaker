@@ -7,10 +7,13 @@ import history from '../history'
  * COMPONENT
  */
 class NavBar extends Component {
-  consructor() {
-    props()
+  constructor(props) {
+    super(props)
+
     this.handleClick = this.handClick.bind(this)
+
   }
+
 
   handClick (e) {
     history.push('/')
@@ -18,8 +21,9 @@ class NavBar extends Component {
     
   }
     render () {
+
     return (
-      <div id="navbar">
+      <div id="navbar" >
           {/* <ReactRevealText className="navbar">VIBEZ</ReactRevealText> */}
           <div>
         {<h1 id="navmargin" onClick={e => this.handClick(e)}>VIBEZ</h1>}

@@ -103,7 +103,6 @@ class TagOptions extends Component {
                         {
                             this.state.choosingTags.length ? (
                                 <div className="center-text">
-                                <h3>main vibez are...</h3>
                                 </div>
                             ) : null
                         }

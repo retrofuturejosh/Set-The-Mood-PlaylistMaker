@@ -6,8 +6,8 @@ const compression = require('compression')
 const session = require('express-session')
 const passport = require('passport')
 const SequelizeStore = require('connect-session-sequelize')(session.Store)
-const db = require('./db')
-const sessionStore = new SequelizeStore({db})
+// const db = require('./db')
+// const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
@@ -67,15 +67,15 @@ const createApp = () => {
   // session middleware with passport
   app.use(session({
     secret: process.env.SESSION_SECRET || 'my best friend is Cody',
-    store: sessionStore,
+    // store: sessionStore,
     resave: false,
     saveUninitialized: false
   }))
   app.use(passport.initialize())
-  app.use(passport.session())
+  // app.use(passport.session())
 
   // auth and api routes
-  app.use('/auth', require('./auth'))
+  // app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
 
   // static file-serving middleware
@@ -110,21 +110,21 @@ const startListening = () => {
   const server = app.listen(PORT, () => console.log(`Mixing it up on port ${PORT}`))
 
   // set up our socket control center
-  const io = socketio(server)
-  require('./socket')(io)
+  // const io = socketio(server)
+  // require('./socket')(io)
 }
 
-const syncDb = () => db.sync()
+// const syncDb = () => db.sync()
 
 // This evaluates as true when this file is run directly from the command line,
 // i.e. when we say 'node server/index.js' (or 'nodemon server/index.js', or 'nodemon server', etc)
 // It will evaluate false when this module is required by another module - for example,
 // if we wanted to require our app in a test spec
 if (require.main === module) {
-  sessionStore.sync()
-    .then(syncDb)
-    .then(createApp)
-    .then(startListening)
+  // sessionStore.sync()
+    // .then(syncDb)
+    createApp()
+    startListening()
 } else {
   createApp()
 }
