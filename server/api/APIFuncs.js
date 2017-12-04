@@ -4,31 +4,14 @@ var stringSimilarity = require('string-similarity');
 
 const key = process.env.lastFM || secrets.lastFMKey
 
-const googleQueryURL = 'http://suggestqueries.google.com/complete/search?output=toolbar&hl=en&q=' //then the term
+const finalFetchTerm = '&api_key=' + key + '&format=json'
+const fetchTrackEquals = '&track='
+const fetchFormatJSON = '&format=json'
 
-const fetchStringOne = 'http://ws.audioscrobbler.com/2.0/?method=track.getsimilar&artist='
-const fetchStringTwo = '&track='
-const fetchStringThree = '&api_key=' + key + '&format=json'
-
-const fetchInfoOne = 'http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=' + key + '&artist='
-const fetchInfoTwo = '&track='
-const fetchInfoThree = '&format=json'
-
-const fetchTagsOne = 'http://ws.audioscrobbler.com/2.0/?method=track.gettoptags&artist='
-const fetchTagsTwo = '&track='
-const fetchTagsThree = '&api_key=' + key + '&format=json'
-
-const fetchSongsByTagOne = 'http://ws.audioscrobbler.com/2.0/?method=tag.gettoptracks&tag='
-const fetchSongsByTagTwo = '&api_key=' + key + '&format=json'
-
-const fetchArtistSearchOne = 'http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=' 
-const fetchArtistSearchTwo = '&api_key=' + key + '&format=json'
-
-const findSongOne = 'http://ws.audioscrobbler.com/2.0/?method=track.search&track=' 
-const findSongTwo = '&api_key=' + key + '&format=json'
 
 function fetchTrackInfo(artist, track){
-    const fetchInfoAPIURL = fetchInfoOne + artist + fetchInfoTwo + track + fetchInfoThree
+    const fetchInfoOne = 'http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=' + key + '&artist='
+    const fetchInfoAPIURL = fetchInfoOne + artist + fetchTrackEquals + track + fetchFormatJSON
     return fetch(fetchInfoAPIURL)
     .then(res => res.json())
     .then(body => {
@@ -41,7 +24,9 @@ function fetchTrackInfo(artist, track){
 }
 
 function findSong(searchTerm){
-    let findSongAPIURL = findSongOne + searchTerm + findSongTwo
+    const findSongOne = 'http://ws.audioscrobbler.com/2.0/?method=track.search&track=' 
+    const findSongTwo = finalFetchTerm
+    const findSongAPIURL = findSongOne + searchTerm + finalFetchTerm
     return fetch(findSongAPIURL)
     .then(res => res.json())
     .then(body => {
@@ -53,8 +38,9 @@ function findSong(searchTerm){
 }
 
 function googleQuery(searchTerm){
+    const googleQueryURL = 'http://suggestqueries.google.com/complete/search?output=toolbar&hl=en&q=' //then the term
+    const query = googleQueryURL + searchTerm
     let parsedResults = []
-    let query = googleQueryURL + searchTerm
     return fetch(query)
     .then(res => res.text())
     .then(results => {
@@ -73,7 +59,8 @@ function googleQuery(searchTerm){
 
 
 function searchForArtist(artist){
-    let fetchArtistsAPIURL = fetchArtistSearchOne + artist + fetchArtistSearchTwo
+    const fetchArtistSearchOne = 'http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=' 
+    const fetchArtistsAPIURL = fetchArtistSearchOne + artist + finalFetchTerm
     return fetch(fetchArtistsAPIURL)
     .then(res => res.body)
     .then(body => {
@@ -85,7 +72,8 @@ function searchForArtist(artist){
 }
 
 function fetchTags(artistName, trackName, num){
-    let fetchTagsString = fetchTagsOne + artistName + fetchTagsTwo + trackName + fetchTagsThree
+    const fetchTagsOne = 'http://ws.audioscrobbler.com/2.0/?method=track.gettoptags&artist='
+    const fetchTagsString = fetchTagsOne + artistName + fetchTrackEquals + trackName + finalFetchTerm
     let returnArr = []
     return fetch(fetchTagsString)
         .then(res => res.json())
@@ -110,8 +98,10 @@ function fetchTags(artistName, trackName, num){
         );
 }
 
+
 function fetchSimilarSongs(artistName, trackName){
-    let fetchString = fetchStringOne + artistName + fetchStringTwo + trackName + fetchStringThree
+    const fetchStringOne = 'http://ws.audioscrobbler.com/2.0/?method=track.getsimilar&artist='
+    const fetchString = fetchStringOne + artistName + fetchTrackEquals + trackName + finalFetchTerm
     let returnArr = []
     return fetch(fetchString)
     .then((res)=> res.json())
@@ -127,7 +117,8 @@ function fetchSimilarSongs(artistName, trackName){
 }
 
 function fetchSongsByTag(tag){
-    let fetchSongsByTagString = fetchSongsByTagOne + tag + fetchSongsByTagTwo
+    const fetchSongsByTagOne = 'http://ws.audioscrobbler.com/2.0/?method=tag.gettoptracks&tag='
+    const fetchSongsByTagString = fetchSongsByTagOne + tag + finalFetchTerm
     let returnArr = []
     return fetch(fetchSongsByTagString)
     .then(res => res.json())
