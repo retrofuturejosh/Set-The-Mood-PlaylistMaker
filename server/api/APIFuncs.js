@@ -42,7 +42,6 @@ function fetchTrackInfo(artist, track){
 
 function findSong(searchTerm){
     let findSongAPIURL = findSongOne + searchTerm + findSongTwo
-    console.log('findSong API URL IS ', findSongAPIURL)
     return fetch(findSongAPIURL)
     .then(res => res.json())
     .then(body => {
@@ -106,7 +105,6 @@ function fetchTags(artistName, trackName, num){
                     } else returnArr.push({name: body.toptags.tag[i].name, count: body.toptags.tag[i].count})
                 }
             }
-            // if (!returnArr.length) return ['NOT FOUND']
             return returnArr
         }).catch(err => console.log(err)
         );

@@ -24,7 +24,7 @@ const removeTagOption = newTagOptions => ({type: REMOVE_TAG_OPTION, tags: newTag
  */
 export const tagOptionsThunk = (songName, artistName) =>
     dispatch => {
-        return axios.get(`/api/songs/?tags=true&song=${songName}&artist=${artistName}&num=20`)
+        return axios.get(`/api/songTags/?tags=true&song=${songName}&artist=${artistName}&num=20`)
         .then(res => {
             dispatch(getTagOptions(res.data || tagOptions))
         })

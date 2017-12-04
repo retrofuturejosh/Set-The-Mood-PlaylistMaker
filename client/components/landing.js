@@ -6,7 +6,7 @@ import history from '../history'
 
 import { tagOptionsThunk, setTrackThunk } from '../store'
 
-class Landing extends Component {
+export class Landing extends Component {
     constructor() {
         super()
     }

@@ -1,9 +1,11 @@
 const router = require('express').Router()
 module.exports = router
 
-router.use('/songs', require('./songs'))
+router.use('/songTags', require('./songTags'))
 
 router.use('/playlist', require('./playlist'))
+
+router.use('/songs', require('./songs'))
 
 router.use((req, res, next) => {
   const error = new Error('Not Found')

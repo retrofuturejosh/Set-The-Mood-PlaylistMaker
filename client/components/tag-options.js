@@ -10,7 +10,7 @@ import { possibleSongsThunk } from '../store/possible-songs'
 import { tagOptionsThunk, setTrackThunk, removeTagOptionThunk } from '../store'
 
 
-class TagOptions extends Component {
+export class TagOptions extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -217,8 +217,6 @@ const mapState = (state) => {
         handleNewSong: (e, track, artist) => {
             dispatch(setTrackThunk(artist, track))
             dispatch(tagOptionsThunk(track, artist))
-            // history.push('/tagoptions')
-
         },
         handleRemoveTagOption: (oldOptions, tagIdx) => {
             let newOptions = oldOptions.slice()
