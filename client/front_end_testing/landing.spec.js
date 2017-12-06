@@ -41,6 +41,6 @@ describe('Landing', () => {
 
   it('has an onSubmit function called on submit', () => {
     form.simulate('submit')
-    expect(handleSubmit.calledOnce).to.equal(true);
+    expect(handleSubmit.calledOnce).to.equal(true)
   })
 })

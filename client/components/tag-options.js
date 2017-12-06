@@ -71,6 +71,7 @@ export class TagOptions extends Component {
 
 
     render() {
+        //Song is not found, search for possible song matches yields no results
         if ((!this.props.possibleSongs.length && this.state.triedToFindSong && !this.state.possibilitySelected) || (this.state.possibilitySelected && this.props.tagOptions[0] === 'NOT FOUND')) {
             return (
             <div id="sorry">
@@ -78,10 +79,14 @@ export class TagOptions extends Component {
             </div>
             )
         }
+
+        //song is not found but no search for possible matches has been executed
         else if (this.props.tagOptions[0] === 'NOT FOUND' && !this.props.possibleSongs.length) {
             this.setState({triedToFindSong: true})
             this.props.handleNotFound(`${this.props.chosenTrack.artist} ${this.props.chosenTrack.track}`)
         }
+
+        //song is not found, but possible song matches are available
         if (this.props.tagOptions[0] === 'NOT FOUND' && this.props.possibleSongs.length){
             return (
                 <div>
@@ -89,6 +94,8 @@ export class TagOptions extends Component {
                     Did you mean...
                     </h3>
                     {
+                    
+                    //list of possible songs
                         this.props.possibleSongs.length ? 
                             this.props.possibleSongs.map((song, idx) => {
                                 if (idx < 3) {
@@ -106,18 +113,25 @@ export class TagOptions extends Component {
                 </div>
             )
         }
+
+        //song is found and tags are available
         if (+this.props.tagsAvail > 1){
             return (
                 <div id="options-div">
-                        <button id={this.state.notEnough ? "chose-tags-disable" : "chose-tags"}
+
+                {/* create playlist button */}
+                    <button id={this.state.notEnough ? "chose-tags-disable" : "chose-tags"}
                         disabled={this.state.notEnough}
-                        onClick={e => this.props.handleSubmit(e, this.state.choosingTags, this.props.tagOptions, this.props.chosenTrack.artist, this.props.chosenTrack.track)}>VIBE!</button>
-                        {
-                            this.state.choosingTags.length ? (
-                                <div className="center-text">
-                                </div>
-                            ) : null
-                        }
+                        onClick={e => this.props.handleSubmit(e, this.state.choosingTags, this.props.tagOptions, this.props.chosenTrack.artist, this.props.chosenTrack.track)}>VIBE!
+                    </button>
+                    {
+                        this.state.choosingTags.length ? (
+                            <div className="center-text">
+                            </div>
+                        ) : null
+                    }
+
+                {/* list of chosen tags */}
                     <div className="tag-holder">
                         {this.state.choosingTags.map((tag, i) => {
                             return (
@@ -134,24 +148,30 @@ export class TagOptions extends Component {
                             )
                         })}
                     </div>
+                    
+                    {/* directions */}
                     <div id="directions">
                     <h3>pick 1 - 5 qualities that especially fit the vibe</h3>
                     <h4>remove any qualities that don't vibe</h4>
                     </div>
                     {
                         this.state.tooMany ? 
-                        (<div> you can only choose 5 </div>)
+                        (<div id="too-many-chosen">
+                            you can only choose 5
+                        </div>)
                         :
                         null
                     }
                     {
                         this.state.deletedTooMany ? (
-                            <div>
+                            <div id="deleted-too-many">
                                 you must leave at least 5 qualities
                             </div>
                         )
                         : null
                     }
+
+                    {/* list of possible tags */}
                     <div className="tag-holder">
                         {this.props.tagOptions.map((tag, i) => {
                             return (
@@ -181,6 +201,8 @@ export class TagOptions extends Component {
                     </div>
                 </div>
             )
+
+        // default view when running functions
         } else {
             return (
             <div id="sorry">

@@ -15,16 +15,16 @@ function copyProps(src, target) {
     .reduce((result, prop) => ({
       ...result,
       [prop]: Object.getOwnPropertyDescriptor(src, prop),
-    }), {});
-  Object.defineProperties(target, props);
+    }), {})
+  Object.defineProperties(target, props)
 }
 
-global.window = window;
-global.document = window.document;
+global.window = window
+global.document = window.document
 global.navigator = {
   userAgent: 'node.js',
 };
-copyProps(window, global);
+copyProps(window, global)
 
 const adapter = new Adapter()
 enzyme.configure({adapter})
@@ -41,9 +41,9 @@ describe('NavBar', () => {
   })
 
   it('header calls a function when clicked', () => {
-    const clickSpy = spy(NavBar.prototype, 'handleClick')
+    NavBar.prototype.handleClick = stub()
     navBar = shallow(<NavBar/>)
     navBar.find('h1').simulate('click')
-    expect(clickSpy.calledOnce).to.equal(true);
+    expect(NavBar.prototype.handleClick.calledOnce).to.equal(true)
   })
 })
