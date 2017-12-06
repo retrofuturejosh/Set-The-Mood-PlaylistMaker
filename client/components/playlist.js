@@ -137,6 +137,7 @@ export class Playlist extends Component {
                     onStateChange={this._onRemove}
                     onReady={this._onReady}
                     ref="youTubePlayer"
+                    origin="https://www.youtube.com"
                     />
                         <div className="control" 
                         onClick={e => this.setState({
