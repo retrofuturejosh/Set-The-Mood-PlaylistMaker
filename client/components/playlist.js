@@ -9,7 +9,7 @@ import ReactRevealText from 'react-reveal-text'
 
 import { tagOptionsThunk, removeTrackThunk } from '../store'
 
-class Playlist extends Component {
+export class Playlist extends Component {
     constructor() {
         super()
         this.state = {

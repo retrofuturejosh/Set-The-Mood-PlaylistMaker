@@ -114,7 +114,6 @@ router.get('/', (req, res, next) => {
             return new Promise((resolve, reject) => {
                 youTubeSearch(`${finalSong.name} ${finalSong.artist} official`, youTubeOpts, function(err, results) {
                     if(err) reject(err);
-                    console.log(results)
                     if (results.length && results[0].id !== undefined) {
                     finalSong.youtubeid = results[0].id
                     }
