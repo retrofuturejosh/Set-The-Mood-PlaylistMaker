@@ -117,7 +117,8 @@ export class Playlist extends Component {
             height: '390',
             width: '640',
             playerVars: { // https://developers.google.com/youtube/player_parameters
-              autoplay: 1
+              autoplay: 1,
+              origin: "https://vibez-playlist-maker.herokuapp.com/"
             }
           };
         return (
@@ -137,7 +138,6 @@ export class Playlist extends Component {
                     onStateChange={this._onRemove}
                     onReady={this._onReady}
                     ref="youTubePlayer"
-                    origin="https://www.youtube.com"
                     />
                         <div className="control" 
                         onClick={e => this.setState({

@@ -13,7 +13,8 @@ const youTubeOpts  = {
     maxResults: 10,
     key: APIKEY,
     type: 'video',
-    videoEmbeddable: true
+    videoEmbeddable: true,
+    videoSyndicated: true
   };
 
 module.exports = router
