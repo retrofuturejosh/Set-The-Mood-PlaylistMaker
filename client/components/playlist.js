@@ -20,7 +20,6 @@ export class Playlist extends Component {
         this.getVideo = this.getVideo.bind(this)
         this._onReady = this._onReady.bind(this)
         this._onRemove = this._onRemove.bind(this)
-        this.handleKeyPress = this.handleKeyPress.bind(this)
         this.timeOutGraphic = this.timeOutGraphic.bind(this)
     }
 
@@ -30,9 +29,9 @@ export class Playlist extends Component {
       }
 
     getVideo () {
-        if (+this.state.videoToggle < 50){
+        if (+this.state.videoToggle < this.props.playlist.playlistArr.length-1){
             this.setState({videoToggle: +this.state.videoToggle + 1})
-        }
+        } else this.setState({videoToggle: 0})
     }
 
     timeOutGraphic() {
@@ -45,10 +44,6 @@ export class Playlist extends Component {
         this.setState({
             videoToggle: i
         })
-    }
-
-    handleKeyPress(e) {
-
     }
     
 
@@ -76,11 +71,10 @@ export class Playlist extends Component {
             }
           };
         return (
-            <div id="player" onKeyPress={this.handleKeyPress}>
+            <div id="player">
                 {   this.props.playlist.playlistArr ? (
                     <div id="player">
                         <div className="control" 
-                        onKeyPress={this.handleKeyPress}
                         onClick={e => this.setState({
                             videoToggle: (+this.state.videoToggle - 1)
                             })}>
@@ -94,7 +88,6 @@ export class Playlist extends Component {
                     onReady={this._onReady}
                     />
                         <div className="control" 
-                        onKeyPress={this.handleKeyPress}
                         onClick={e => this.setState({
                             videoToggle: (+this.state.videoToggle + 1)
                             })}>
@@ -111,23 +104,25 @@ export class Playlist extends Component {
                 }
                 {   this.props.playlist.playlistArr ? (
                     <table>
-                    {this.props.playlist.playlistArr.map((song, i) => {
-                        return (
-                            <tr key={`${i}div`}>
+                        <tbody>
+                            {this.props.playlist.playlistArr.map((song, i) => {
+                                return (
+                                    <tr key={`${i}div`}>
 
-                                <th className={(i === +this.state.videoToggle) ? "leftselect" : "left"} onClick={(e) => this.handleClick(e, i)} key={i}>
-                                    {song.name} - {song.artist}
-                                </th>
-                                <th
-                                    className="hover-red"
-                                    key={`${i}a`} 
-                                    onClick={(e) => this.props.removeTrack(e, this.props.playlist, i)}
-                                >
-                                    x 
-                                </th>
-                            </tr>
-                        )
-                    })}
+                                        <th className={(i === +this.state.videoToggle) ? "leftselect" : "left"} onClick={(e) => this.handleClick(e, i)} key={i}>
+                                            {song.name} - {song.artist}
+                                        </th>
+                                        <th
+                                            className="hover-red"
+                                            key={`${i}a`} 
+                                            onClick={(e) => this.props.removeTrack(e, this.props.playlist, i)}
+                                        >
+                                            x 
+                                        </th>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
                     </table>
                 ) : null
                 }
