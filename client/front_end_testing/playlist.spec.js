@@ -35,6 +35,7 @@ describe('Playlist', () => {
   let playlist
   let timeOutSpy = spy(Playlist.prototype, 'timeOutGraphic')
   let handleClickSpy = spy(Playlist.prototype, 'handleClick')
+  let onReadySpy = spy(Playlist.prototype, '_onReady')
   let removeTrack = stub()
   let tags = [
     {name: 'calm'},
@@ -59,6 +60,7 @@ describe('Playlist', () => {
     playlistRendering = shallow(<Playlist playlist={{}} chosenTags={tags}/>)
     timeOutSpy.reset()
     handleClickSpy.reset()
+    onReadySpy.reset()
     playlist = shallow(<Playlist playlist={playlistProp} chosenTags={tags} removeTrack={removeTrack}/>)
   })
 
@@ -138,15 +140,5 @@ describe('Playlist', () => {
       playlist.find('.hover-red').first().simulate('click')
       expect(removeTrack.calledOnce).to.equal(true)
   })
-
-//   it('has an h1 header', () => {
-//     expect(navBar.find('h1').text()).to.equal('VIBEZ')
-//   })
-
-//   it('header calls a function when clicked', () => {
-//     NavBar.prototype.handleClick = stub()
-//     navBar = shallow(<NavBar/>)
-//     navBar.find('h1').simulate('click')
-//     expect(NavBar.prototype.handleClick.calledOnce).to.equal(true)
-//   })
+  
 })

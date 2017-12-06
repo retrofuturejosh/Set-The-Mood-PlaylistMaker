@@ -15,18 +15,68 @@ export class Playlist extends Component {
         this.state = {
             videoToggle: 0,
             started: false,
-            show: false
+            show: false,
+            paused: false
         }
         this.getVideo = this.getVideo.bind(this)
         this._onReady = this._onReady.bind(this)
         this._onRemove = this._onRemove.bind(this)
+        this._handleKeyDown = this._handleKeyDown.bind(this)
         this.timeOutGraphic = this.timeOutGraphic.bind(this)
     }
 
     componentDidMount() {
         if (!this.props.chosenTags.length) history.push('/')
         this.timeOutGraphic()
+        document.addEventListener("keydown", this._handleKeyDown)
       }
+
+    componentWillUnmount() {
+        document.removeEventListener("keydown", this._handleKeyDown)
+    }
+
+    _onReady(event) {
+        if (!this.state.started){
+            event.target.pauseVideo();
+            this.setState({started: true})
+        }
+    }
+
+    _onRemove(event) {
+        if (!this.state.started){
+            event.target.pauseVideo();
+        }
+    } 
+
+    _handleKeyDown(e) {
+        if(e.key === "ArrowRight" || e.key === "ArrowLeft") {
+            e.preventDefault()
+            let currentToggle = this.state.videoToggle
+            if (currentToggle === 0 && e.key === "ArrowLeft"){
+                currentToggle = this.props.playlist.playlistArr.length
+            }
+            if (currentToggle === this.props.playlist.playlistArr.length-1 && e.key === "ArrowRight") {
+                currentToggle = -1
+            }
+            this.setState({videoToggle:
+                e.key === "ArrowRight" ?
+                currentToggle + 1
+                :
+                currentToggle - 1})
+        }
+       if(e.code === "Space") {
+           e.preventDefault()
+           let player = this.refs.youTubePlayer.internalPlayer
+           if(this.state.paused){
+               this.setState({paused: false})
+               player.playVideo()
+           }
+           else {
+               this.setState({paused: true})
+               player.pauseVideo()
+           }
+       }
+    }
 
     getVideo () {
         if (+this.state.videoToggle < this.props.playlist.playlistArr.length-1){
@@ -86,6 +136,7 @@ export class Playlist extends Component {
                     opts={opts}
                     onStateChange={this._onRemove}
                     onReady={this._onReady}
+                    ref="youTubePlayer"
                     />
                         <div className="control" 
                         onClick={e => this.setState({
@@ -128,18 +179,7 @@ export class Playlist extends Component {
                 }
             </div>
         )
-    }
-    _onReady(event) {
-        if (!this.state.started){
-            event.target.pauseVideo();
-            this.setState({started: true})
-        }
-      }
-      _onRemove(event) {
-        if (!this.state.started){
-            event.target.pauseVideo();
-        }
-      }      
+    }     
 }
 
 const mapState = (state) => {
@@ -151,13 +191,6 @@ const mapState = (state) => {
   
   const mapDispatch = (dispatch) => {
     return {
-        handleSubmit (evt) {
-            evt.preventDefault()
-            const song = evt.target.song.value
-            const artist = evt.target.artist.value
-            dispatch(tagOptionsThunk(song, artist))
-            history.push('/tagoptions')
-        },
         removeTrack (e, currentPlaylist, idx) {
             let playlistCopy = Object.assign({}, currentPlaylist)
             playlistCopy.playlistArr.splice(idx, 1)
