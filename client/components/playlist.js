@@ -116,7 +116,7 @@ export class Playlist extends Component {
         const opts = {
             height: '390',
             width: '640',
-            https: 'vibez-playlist-maker.herokuapp.com/playlist',
+            origin: 'https://vibez-playlist-maker.herokuapp.com/playlist',
             playerVars: { // https://developers.google.com/youtube/player_parameters
               autoplay: 1,
             }
