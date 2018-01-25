@@ -4,7 +4,7 @@ import {Router} from 'react-router'
 import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Landing, TagOptions, Playlist} from './components'
+import {Landing, TagOptions, Playlist, Login} from './components'
 import NavBar from './components/nav-bar'
 
 /**
@@ -22,7 +22,8 @@ class Routes extends Component {
         <Switch>
           <Route path="/tagoptions" component={TagOptions}/>
           <Route path="/playlist" component={Playlist}/>
-          <Route path="/" component={Landing}/>
+          <Route path="/landing" component={Landing}/>
+          <Route path="/" component={Login} />
         </Switch>
       </Router>
       </div>

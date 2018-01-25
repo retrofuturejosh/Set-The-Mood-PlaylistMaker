@@ -3,15 +3,20 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import history from '../history'
+import querystring from 'querystring';
 
-import { tagOptionsThunk, setTrackThunk } from '../store'
+import { tagOptionsThunk, setTrackThunk, getUser, getSpotifyTokens } from '../store'
 
 export class Landing extends Component {
     constructor() {
         super()
     }
 
-    render() {
+    render(props) {
+        console.log(this.props);
+        let parsedQuery = querystring.parse(this.props.location.hash.slice(1))
+        console.log(parsedQuery)
+        this.props.handleUserInfo(parsedQuery.access_token, parsedQuery.refresh_token, parsedQuery.name)
         return (
             <div>
                 <div>
@@ -48,6 +53,10 @@ const mapState = (state) => {
             dispatch(setTrackThunk(artist, song))
             dispatch(tagOptionsThunk(song, artist))
             history.push('/tagoptions')
+        },
+        handleUserInfo (access, refresh, name) {
+          dispatch(getUser(name))
+          dispatch(getSpotifyTokens({access_token: access, refresh_token: refresh}))
         }
       }
   }

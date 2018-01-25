@@ -9,7 +9,7 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store)
 const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
-const SpotifyStrategy = require('passport-spotify').Strategy;
+const cookieParser = require('cookie-parser')
 module.exports = app
 
 /**
@@ -50,12 +50,14 @@ const createApp = () => {
   app.use(passport.initialize())
   // app.use(passport.session())
 
-  // auth and api routes
-  // app.use('/auth', require('./auth'))
-  app.use('/api', require('./api'))
-
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')))
+
+  app.use(cookieParser());
+
+    // auth and api routes
+  // app.use('/auth', require('./auth'))
+  app.use('/api', require('./api'))
 
   // any remaining requests with an extension (.js, .css, etc.) send 404
   .use((req, res, next) => {

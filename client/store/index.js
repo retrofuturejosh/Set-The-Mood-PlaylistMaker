@@ -8,8 +8,9 @@ import chosenTags from './chosen-tags'
 import playlist from './playlist'
 import chosenTrack from './chosen-song'
 import possibleSongs from './possible-songs'
+import spotifyTokens from './spotify'
 
-const reducer = combineReducers({user, tagOptions, chosenTags, playlist, chosenTrack, possibleSongs})
+const reducer = combineReducers({user, spotifyTokens, tagOptions, chosenTags, playlist, chosenTrack, possibleSongs})
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
   createLogger({collapsed: true})
@@ -23,3 +24,4 @@ export * from './chosen-tags'
 export * from './playlist'
 export * from './chosen-song'
 export * from './possible-songs'
+export * from './spotify'
