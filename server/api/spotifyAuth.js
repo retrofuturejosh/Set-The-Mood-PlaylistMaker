@@ -48,8 +48,6 @@ router.get('/callback', function(req, res) {
   let state = req.query.state || null;
   let storedState = req.cookies ? req.cookies[stateKey] : null;
 
-  console.log('CODE IS ', code, '\n \n STATE IS ', state, '\n \n STOREDSTATE IS ', storedState)
-
   if (state === null || state !== storedState) {
     res.redirect('/#' +
       querystring.stringify({

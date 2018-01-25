@@ -13,12 +13,13 @@ export class Landing extends Component {
     }
 
     render(props) {
-        console.log(this.props);
         let parsedQuery = querystring.parse(this.props.location.hash.slice(1))
-        console.log(parsedQuery)
         this.props.handleUserInfo(parsedQuery.access_token, parsedQuery.refresh_token, parsedQuery.name)
         return (
             <div>
+                <div>
+                  Hi, {parsedQuery.name}!
+                </div>
                 <div>
                     <form className="form" onSubmit={e => this.props.handleSubmit(e)}>
                         <div className="line">

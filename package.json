@@ -50,10 +50,12 @@
     "redux": "^3.6.0",
     "redux-logger": "^2.8.1",
     "redux-thunk": "^2.2.0",
+    "request-promise": "^4.2.2",
     "sequelize": "^4.3.1",
     "simple-react-player": "0.0.2",
     "sinon": "^4.1.2",
     "socket.io": "^2.0.3",
+    "spotify-web-api-node": "^2.5.0",
     "string-similarity": "^1.2.0",
     "youtube-search": "^1.0.10",
     "ytsearcher": "^1.0.3"
