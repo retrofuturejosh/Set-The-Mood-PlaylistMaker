@@ -7,6 +7,10 @@ module.exports = {
     path: __dirname,
     filename: './public/bundle.js'
   },
+  node: {
+    dns: 'mock',
+    net: 'mock'
+    },
   devtool: 'source-map',
   module: {
     rules: [

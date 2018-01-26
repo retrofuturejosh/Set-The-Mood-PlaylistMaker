@@ -376,6 +376,12 @@ div.tag, div.taga {
   flex-direction: column;
 }
 
+#player-wrapper {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+}
+
 #player div {
   display: flex;
   justify-content: center;

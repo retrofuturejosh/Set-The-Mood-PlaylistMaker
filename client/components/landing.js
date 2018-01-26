@@ -14,9 +14,8 @@ export class Landing extends Component {
 
     render(props) {
         let parsedQuery = querystring.parse(this.props.location.hash.slice(1))
-        console.log(parsedQuery)
         parsedQuery.access_token ? 
-        this.props.handleUserInfo(parsedQuery.access_token, parsedQuery.refresh_token, parsedQuery.user_id, parsedQuery.name)
+        this.props.handleUserInfo(parsedQuery.access_token, parsedQuery.refresh_token, parsedQuery.id, parsedQuery.name)
         :
         null
         return (

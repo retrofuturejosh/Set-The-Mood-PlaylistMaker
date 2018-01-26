@@ -23,6 +23,7 @@ export class Playlist extends Component {
         this._onRemove = this._onRemove.bind(this)
         this._handleKeyDown = this._handleKeyDown.bind(this)
         this.timeOutGraphic = this.timeOutGraphic.bind(this)
+        this.exportPlaylist = this.exportPlaylist.bind(this)
     }
 
     componentDidMount() {
@@ -95,6 +96,34 @@ export class Playlist extends Component {
             videoToggle: i
         })
     }
+
+    exportPlaylist() {
+      let token = this.props.tokens.access_token
+      let id = this.props.tokens.id
+
+      console.log('FETCHING WITH TOKEN ', token, '\n AND ID ', id)
+
+      const url = 'https://api.spotify.com/v1/users/' + id +
+      '/playlists';
+      fetch(url, {
+        method: 'POST',
+        body: JSON.stringify({
+          "name": "New Playlist",
+          "description": "New playlist description",
+          "public": false
+        }),
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(error)
+      })
+    }
     
 
     render() {
@@ -123,34 +152,36 @@ export class Playlist extends Component {
           };
         return (
             <div id="player">
-              {this.props.tokens.access_token ?
-                (<div id="export">
-                  <a href={`/api/export?accesstoken=${this.props.tokens.access_token}`} style={{"color":"white"}}> export playlist to Spotify account </a>
-                </div>)
-                :
-                (null) }
-                {   this.props.playlist.playlistArr ? (
-                    <div id="player">
-                        <div className="control" 
-                        onClick={e => this.setState({
-                            videoToggle: (+this.state.videoToggle - 1)
-                            })}>
-                        prev
-                        </div>
-                    < YouTube playing
-                    videoId={this.props.playlist.playlistArr[+this.state.videoToggle].youtubeid} 
-                    onEnd={this.getVideo}
-                    opts={opts}
-                    onStateChange={this._onRemove}
-                    onReady={this._onReady}
-                    ref="youTubePlayer"
-                    />
-                        <div className="control" 
-                        onClick={e => this.setState({
-                            videoToggle: (+this.state.videoToggle + 1)
-                            })}>
-                        next
-                        </div>
+                { this.props.playlist.playlistArr ? (
+                    <div id="player-wrapper">
+                      {this.props.tokens.access_token ?
+                        (<div id="export" onClick={this.exportPlaylist}>
+                          export playlist to Spotify account
+                        </div>)
+                        :
+                        (null) }
+                      <div id="player">
+                          <div className="control" 
+                          onClick={e => this.setState({
+                              videoToggle: (+this.state.videoToggle - 1)
+                              })}>
+                          prev
+                          </div>
+                      < YouTube playing
+                      videoId={this.props.playlist.playlistArr[+this.state.videoToggle].youtubeid} 
+                      onEnd={this.getVideo}
+                      opts={opts}
+                      onStateChange={this._onRemove}
+                      onReady={this._onReady}
+                      ref="youTubePlayer"
+                      />
+                          <div className="control" 
+                          onClick={e => this.setState({
+                              videoToggle: (+this.state.videoToggle + 1)
+                              })}>
+                          next
+                          </div>
+                      </div>
                     </div>
                 ) : <div className="flex-center">
                           <div id="loading">
@@ -203,7 +234,7 @@ const mapState = (state) => {
       chosenTags: state.chosenTags,
       playlist: state.playlist,
       user: state.user,
-      tokens: user.spotifyTokens
+      tokens: state.spotifyTokens
     }
   }
   
