@@ -157,10 +157,19 @@ export class Playlist extends Component {
                 {   this.props.playlist.playlistArr ? (
                     <table>
                         <tbody>
+                          <tr>
+                            <th className="th-title"> Spotify </th>
+                            <th className="th-title"> YouTube </th>
+                            <th className="th-title"> X </th>
+                          </tr>
                             {this.props.playlist.playlistArr.map((song, i) => {
                                 return (
                                     <tr key={`${i}div`}>
-
+                                      { song.spotifyID ? (
+                                        <iframe className="spotify-iframe" src={`https://open.spotify.com/embed?uri=spotify:track:${song.spotifyID}`}
+                                        frameborder="0" allowtransparency="true"></iframe>)
+                                        :
+                                        (<th className="th-title"> Song Not found on Spotify </th> )}
                                         <th className={(i === +this.state.videoToggle) ? "leftselect" : "left"} onClick={(e) => this.handleClick(e, i)} key={i}>
                                             {song.name} - {song.artist}
                                         </th>

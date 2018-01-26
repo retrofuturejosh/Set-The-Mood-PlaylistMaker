@@ -7,7 +7,12 @@ import history from '../history'
 export const Login = props => {
   return (
     <div>
-      <a href="/api/spotifyAuth/login" className="btn btn-primary">Log in with Spotify</a>
+      <div className="login">
+        <a href="/api/spotifyAuth/login" style={{"color":"white"}}>Log in with Spotify</a>
+      </div>
+      <div className="login">
+        <a href="/landing" style={{"color":"white"}}>Continue without Spotify</a>
+      </div>
     </div>
   )
 }
