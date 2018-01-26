@@ -9,7 +9,7 @@ const client_secret = secret.spotifyClientSecret; // Your secret
 const redirect_uri = 'http://localhost:8080/api/spotifyAuth/callback'; // Your redirect uri
 
 
-const generateRandomString = function(length) {
+const generateRandomString = length => {
   let text = '';
   let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -22,13 +22,13 @@ const generateRandomString = function(length) {
 let stateKey = 'spotify_auth_state';
 let name;
 
-router.get('/login', function(req, res) {
+router.get('/login', (req, res) => {
 
   let state = generateRandomString(16);
   res.cookie(stateKey, state);
 
   // your application requests authorization
-  let scope = 'user-read-private user-read-email';
+  let scope = 'user-read-private user-read-email playlist-modify-public playlist-modify-private';
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -39,7 +39,7 @@ router.get('/login', function(req, res) {
     }));
 });
 
-router.get('/callback', function(req, res) {
+router.get('/callback', (req, res) => {
 
   // your application requests refresh and access tokens
   // after checking the state parameter
@@ -68,12 +68,11 @@ router.get('/callback', function(req, res) {
       json: true
     };
 
-    request.post(authOptions, function(error, response, body) {
+    request.post(authOptions, (error, response, body) => {
       if (!error && response.statusCode === 200) {
 
         let access_token = body.access_token,
             refresh_token = body.refresh_token;
-  
 
         let options = {
           url: 'https://api.spotify.com/v1/me',
@@ -82,14 +81,16 @@ router.get('/callback', function(req, res) {
         };
 
         // use the access token to access the Spotify Web API
-        request.get(options, function(error, response, body) {
+        request.get(options, (error, response, body) => {
           console.log('HERE is MY BODY', body);
           name = body.display_name;
+          let user_id = body.id;
           res.redirect('/landing/#' +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token,
-            name: name
+            name: name,
+            id: user_id
           }));
         });
 
@@ -104,7 +105,7 @@ router.get('/callback', function(req, res) {
   }
 });
 
-router.get('/refresh_token', function(req, res) {
+router.get('/refresh_token', (req, res) => {
 
   // requesting access token from refresh token
   let refresh_token = req.query.refresh_token;
@@ -118,7 +119,7 @@ router.get('/refresh_token', function(req, res) {
     json: true
   };
 
-  request.post(authOptions, function(error, response, body) {
+  request.post(authOptions, (error, response, body) => {
     if (!error && response.statusCode === 200) {
       var access_token = body.access_token;
       res.send({

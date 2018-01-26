@@ -157,7 +157,8 @@ export class TagOptions extends Component {
                     {
                         this.state.tooMany ? 
                         (<div id="too-many-chosen">
-                            you can only choose 5
+                            sorry, you can only choose 5 main qualities. <br/>
+                            don't worry the qualities below will still count (just not as much)
                         </div>)
                         :
                         null

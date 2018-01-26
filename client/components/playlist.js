@@ -123,6 +123,12 @@ export class Playlist extends Component {
           };
         return (
             <div id="player">
+              {this.props.tokens.access_token ?
+                (<div id="export">
+                  <a href={`/api/export?accesstoken=${this.props.tokens.access_token}`} style={{"color":"white"}}> export playlist to Spotify account </a>
+                </div>)
+                :
+                (null) }
                 {   this.props.playlist.playlistArr ? (
                     <div id="player">
                         <div className="control" 
@@ -195,7 +201,9 @@ export class Playlist extends Component {
 const mapState = (state) => {
     return {
       chosenTags: state.chosenTags,
-      playlist: state.playlist
+      playlist: state.playlist,
+      user: state.user,
+      tokens: user.spotifyTokens
     }
   }
   

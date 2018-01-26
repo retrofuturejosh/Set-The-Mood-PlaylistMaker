@@ -9,6 +9,8 @@ router.use('/songs', require('./songs'))
 
 router.use('/spotifyAuth', require('./spotifyAuth'))
 
+router.use('/export', require('./export'))
+
 router.use((req, res, next) => {
   const error = new Error('Not Found')
   error.status = 404

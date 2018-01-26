@@ -14,8 +14,9 @@ export class Landing extends Component {
 
     render(props) {
         let parsedQuery = querystring.parse(this.props.location.hash.slice(1))
+        console.log(parsedQuery)
         parsedQuery.access_token ? 
-        this.props.handleUserInfo(parsedQuery.access_token, parsedQuery.refresh_token, parsedQuery.name)
+        this.props.handleUserInfo(parsedQuery.access_token, parsedQuery.refresh_token, parsedQuery.user_id, parsedQuery.name)
         :
         null
         return (
@@ -29,7 +30,7 @@ export class Landing extends Component {
                 <div>
                     <form className="form" onSubmit={e => this.props.handleSubmit(e)}>
                         <div className="line">
-                        <h3>what song best fits the vibe you want?</h3>
+                        <h3 id="pick-song">what song best fits the vibe you want?</h3>
                         song: <input className="input" type="text" name="song"/>
                         </div>
                         <div className="line">
@@ -61,9 +62,9 @@ const mapState = (state) => {
             dispatch(tagOptionsThunk(song, artist))
             history.push('/tagoptions')
         },
-        handleUserInfo (access, refresh, name) {
+        handleUserInfo (access, refresh, id, name) {
           dispatch(getUser(name))
-          dispatch(getSpotifyTokens({access_token: access, refresh_token: refresh}))
+          dispatch(getSpotifyTokens({access_token: access, refresh_token: refresh, id}))
         }
       }
   }

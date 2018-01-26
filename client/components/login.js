@@ -8,7 +8,7 @@ export const Login = props => {
   return (
     <div>
       <div className="login">
-        <a href="/api/spotifyAuth/login" style={{"color":"white"}}>Log in with Spotify</a>
+        <a href="/api/spotifyAuth/login" style={{"color":"white"}}>Connect with Spotify</a>
       </div>
       <div className="login">
         <a href="/landing" style={{"color":"white"}}>Continue without Spotify</a>

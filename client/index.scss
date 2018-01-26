@@ -120,6 +120,7 @@ body {
   height: 80px;
   justify-content: center;
   background-color: rgba(0, 119, 255, 0.393);
+  margin-bottom: 0.5em;
   // background: #1e5799; /* Old browsers */
   // background: -moz-linear-gradient(left, #1e5799 0%, #0072ff 9%, #0072ff 27%, #0072ff 47%, #0072ff 64%, #0072ff 91%, #1e57993e 100%); /* FF3.6-15 */
   // background: -webkit-linear-gradient(left, #1e5799 0%,#0072ff 9%,#0072ff 27%,#0072ff 47%,#0072ff 64%,#0072ff 91%,#1e579930 100%); /* Chrome10-25,Safari5.1-6 */
@@ -196,6 +197,10 @@ input {
   border-width: 2px;
   border-style: solid;
   border-color: black;
+}
+
+#pick-song {
+  margin-top: 0;
 }
 
 #chose-tags-disable{
@@ -522,7 +527,12 @@ div.line {
 }
 
 .greeting {
-  margin-top: 1.5em;
+  margin-top: 1em;
+}
+
+#too-many-chosen {
+  text-align: center;
+  margin-bottom: 1em;
 }
 
 @media only screen and (max-width: 600px) {
