@@ -6,6 +6,8 @@ const stringSimilarity = require('string-similarity');
 const fetch = require('node-fetch');
 const youTubeSearch = require('youtube-search')
 const secrets = require('../../secrets')
+const searchSpotify = require('./spotifyFuncs').searchSpotify
+const getSpotifyToken = require('./spotifyFuncs').getSpotifyToken
 
 const APIKEY = process.env.google || secrets.googleKey
 
@@ -23,6 +25,11 @@ router.get('/', (req, res, next) => {
     let finalPlaylist = []
     let tagsArr = []
     let chosenTags = []
+    let playListWithSpotifyData = []
+    let token
+
+    let tokenPromise = getSpotifyToken()
+
     for (tag in req.query){
         tagsArr.push(req.query[tag])
         if (tag.slice(0, 4) !== 'more') chosenTags.push(req.query[tag])
@@ -31,7 +38,8 @@ router.get('/', (req, res, next) => {
         return fetchSongs(tag)
     })
     let similarPromise = fetchSimilar(req.query.artist, req.query.track)
-    Promise.all([...songPromises, similarPromise])
+
+    let megaPromise = Promise.all([...songPromises, similarPromise])
     .then(trackOptions => {
         return trackOptions.map(trackSet => {
             return trackSet.map(track => {
@@ -125,8 +133,34 @@ router.get('/', (req, res, next) => {
         return Promise.all(youTubePromise)
     })
     .then(playlist => {
+      finalPlaylist = playlist
+    })
+    .catch(error => console.log(error))
+
+
+    tokenPromise
+    .then(returnToken => {
+        token = returnToken
+    })
+
+    Promise.all([megaPromise, tokenPromise])
+    .then(data => {
+      let spotifyPromise = finalPlaylist.map(finalSong => {
+        return searchSpotify(finalSong.name, finalSong.artist, token)
+        .then(result => {
+          if(typeof result === 'string') finalSong.spotifyID = null;
+          else {
+            finalSong.spotifyID = result.trackID
+          }
+          playListWithSpotifyData.push(finalSong)
+        })
+        .catch(error => console.log(error))
+        })
+        return Promise.all(spotifyPromise)
+      })
+    .then(playlist => {
         let final = {}
-        playlist = playlist.filter(track => {
+        playlist = playListWithSpotifyData.filter(track => {
             if (track.youtubeid) return true
             return false
         })
@@ -140,7 +174,8 @@ router.get('/', (req, res, next) => {
         final.youTubeURL = final.youTubeURL.slice(0, -1)
         res.json(final)
     })
-})
+    .catch(error => console.log(error))
+  })
 
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
