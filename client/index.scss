@@ -235,6 +235,8 @@ input {
   border-width: 2px;
   border-style: solid;
   border-color: black;
+  -webkit-animation: whitetoblue 2s;
+  animation-iteration-count: infinite;
 }
 
 #pick-song {
@@ -255,9 +257,26 @@ input {
   0px 0px 95px -30px rgb(113, 92, 118), 
 }
 
-#chose-tags:hover {
-  background-color: hsl(213, 100%, 50%);
-  color: white
+// #chose-tags:hover {
+//   // background-color: hsl(213, 100%, 50%);
+//   // color: white;
+//   // -webkit-animation: whitetoblue 3s;
+//   // animation-iteration-count: infinite;
+// }
+
+@-webkit-keyframes whitetoblue {
+  0% {
+    background-color: white;
+    color: black;
+  }
+  50% {
+    background-color: hsl(213, 100%, 50%);
+    color: white
+  }
+  100% {
+    background-color: white;
+    color: black;
+  }
 }
 
 #options-div h3 h4 {
@@ -291,6 +310,34 @@ div.tag, div.taga {
      -moz-hyphens: auto;
       -ms-hyphens: auto;
           hyphens: auto;
+}
+
+div.tag {
+  // -webkit-animation: flyin 1s;
+}
+
+div.taga {
+  -webkit-animation: fadein 2s;
+}
+
+@-webkit-keyframes fadein {
+  0% {
+    opacity: 0.0;
+  }
+  100% {
+    opacity: 1.0;
+  }
+}
+
+@-webkit-keyframes flyin {
+  0% {
+    transform: scale(0);
+    border-radius: 2.5em;
+  }
+  100% {
+    transform: scale(1);
+    border-radius: 10px;
+  }
 }
 
 .tag, .taga {
@@ -383,6 +430,7 @@ div.tag, div.taga {
   border-radius: 5px;
   border-width: 1px;
   justify-content: center;
+  // -webkit-animation: flyin 1.4s;
 }
 
 
@@ -496,16 +544,16 @@ th:hover {
   color: black;
 }
 
-.th-title:hover {
-  color: white;
-  background-color: #194276;
-  border-radius: 5px;
-  padding-left: 15px;
-  padding-right: 15px;
-  text-align: center;
-  padding-top: 7px;
-  padding-bottom: 7px;
-}
+// .th-title:hover {
+//   color: white;
+//   background-color: #194276;
+//   border-radius: 5px;
+//   padding-left: 15px;
+//   padding-right: 15px;
+//   text-align: center;
+//   padding-top: 7px;
+//   padding-bottom: 7px;
+// }
 
 .th-title {
   background-color: #194276;
