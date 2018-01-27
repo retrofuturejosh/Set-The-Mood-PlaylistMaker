@@ -18,7 +18,7 @@ export class Playlist extends Component {
             show: false,
             paused: false,
             exportFail: false,
-            exported: false
+            exported: false,
         }
         this.getVideo = this.getVideo.bind(this)
         this._onReady = this._onReady.bind(this)
@@ -123,7 +123,6 @@ export class Playlist extends Component {
         return res.json()
       })
       .then(data => {
-        console.log('PLAYLIST CREATED DATA IS ', data)
         spotifyPlaylistLink = data.external_urls.spotify
         let playlist_id = data.id
         let playlistURL = `https://api.spotify.com/v1/users/${user_id}/playlists/${playlist_id}/tracks`
@@ -163,6 +162,7 @@ export class Playlist extends Component {
       })
     }
 
+
     render() {
         const bgStyles = {
             background: 'linear-gradient(135deg, #723362, #9d223c)',
@@ -182,21 +182,37 @@ export class Playlist extends Component {
         const opts = {
             height: '390',
             width: '640',
-            origin: 'https://vibez-playlist-maker.herokuapp.com/playlist',
-            playerVars: { // https://developers.google.com/youtube/player_parameters
-              autoplay: 1,
-            }
+            origin: 'https://vibez-playlist-maker.herokuapp.com/playlist'
           };
         return (
             <div id="player">
                 { this.props.playlist.playlistArr ? (
                     <div id="player-wrapper">
-                      {this.props.tokens.access_token ?
+
+                      {(this.props.tokens.access_token && !this.state.exported)?
                         (<div id="export" onClick={this.exportPlaylist}>
                           export playlist to Spotify account
                         </div>)
                         :
-                        (null) }
+                        (null) 
+                      }
+
+                      {(this.props.tokens.access_token && this.state.exported && !this.state.exportFail)?
+                        (<div id="playlist-added">
+                          playlist successfully added to Spotify!
+                        </div>)
+                        :
+                        (null)
+                      }
+
+                      {(this.props.tokens.access_token && this.state.exportFail)?
+                        (<div id="playlist-failed">
+                          sorry, something went wrong exporting playlist
+                        </div>)
+                        :
+                        (null)
+                      }
+
                       <div id="player">
                           <div className="control" 
                           onClick={e => this.setState({
@@ -231,28 +247,50 @@ export class Playlist extends Component {
                 {   this.props.playlist.playlistArr ? (
                     <table>
                         <tbody>
-                          <tr>
-                            <th className="th-title"> Spotify </th>
-                            <th className="th-title"> YouTube </th>
-                            <th className="th-title"> X </th>
-                          </tr>
+                          
+                          
+                          {!this.props.tokens.access_token ? 
+                            (<tr>
+                              <td className="th-title"> YouTube </td>
+                              <td className="th-title-x"> X </td>
+                            </tr>)
+                            :
+                            <tr>
+                              <td className="th-title"> Spotify </td>
+                              <td className="th-title"> YouTube </td>
+                              <td className="th-title-x"> X </td>
+                            </tr>
+                          }
+                           
+                          
                             {this.props.playlist.playlistArr.map((song, i) => {
                                 return (
                                     <tr key={`${i}div`}>
-                                      { song.spotifyID ? (
-                                        <iframe className="spotify-iframe" src={`https://open.spotify.com/embed?uri=spotify:track:${song.spotifyID}`}
+
+                                      {(this.props.tokens.access_token && song.spotifyID) ?
+                                        (<iframe className="spotify-iframe" src={`https://open.spotify.com/embed?uri=spotify:track:${song.spotifyID}`}
                                         frameborder="0" allowtransparency="true"></iframe>)
-                                        :
-                                        (<th className="th-title"> Song Not found on Spotify </th> )}
+                                      :
+                                        null
+                                      }
+
+                                      {(this.props.tokens.access_token && !song.spotifyID) ? 
+                                        (<th className="th-title"> Song Not found on Spotify </th> )
+                                      :
+                                        null
+                                      }
+
+
                                         <th className={(i === +this.state.videoToggle) ? "leftselect" : "left"} onClick={(e) => this.handleClick(e, i)} key={i}>
                                             {song.name} - {song.artist}
                                         </th>
                                         <th
                                             className="hover-red"
                                             key={`${i}a`} 
+                                            
                                             onClick={(e) => this.props.removeTrack(e, this.props.playlist, i)}
                                         >
-                                            x 
+                                        
                                         </th>
                                     </tr>
                                 )

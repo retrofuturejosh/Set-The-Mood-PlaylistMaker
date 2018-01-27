@@ -7,11 +7,11 @@ import history from '../history'
 export const Login = props => {
   return (
     <div>
-      <div className="login">
-        <a href="/api/spotifyAuth/login" style={{"color":"white"}}>vibe with Spotify</a>
+      <div className="login-main">
+        <a href="/api/spotifyAuth/login">vibe with Spotify</a>
       </div>
       <div className="login">
-        <a href="/landing" style={{"color":"white"}}>vibe without Spotify</a>
+        <a href="/landing">vibe without Spotify</a>
       </div>
     </div>
   )
