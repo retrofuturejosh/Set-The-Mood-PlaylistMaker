@@ -16,7 +16,8 @@ export class Playlist extends Component {
             videoToggle: 0,
             started: false,
             show: false,
-            paused: false
+            paused: false,
+            exported: false
         }
         this.getVideo = this.getVideo.bind(this)
         this._onReady = this._onReady.bind(this)
@@ -99,17 +100,18 @@ export class Playlist extends Component {
 
     exportPlaylist() {
       let token = this.props.tokens.access_token
-      let id = this.props.tokens.id
+      let user_id = this.props.tokens.id
+      let chosenTags = this.props.chosenTags.join(' ')
 
-      console.log('FETCHING WITH TOKEN ', token, '\n AND ID ', id)
+      console.log('FETCHING WITH TOKEN ', token, '\n AND ID ', user_id)
 
-      const url = 'https://api.spotify.com/v1/users/' + id +
+      const url = 'https://api.spotify.com/v1/users/' + user_id +
       '/playlists';
       fetch(url, {
         method: 'POST',
         body: JSON.stringify({
-          "name": "New Playlist",
-          "description": "New playlist description",
+          "name": `VIBEZ Playlist: ${this.props.chosenTrack.artist} - ${this.props.chosenTrack.track}`,
+          "description": `based on tags: ${chosenTags}`,
           "public": false
         }),
         headers: {
@@ -118,12 +120,73 @@ export class Playlist extends Component {
         }
       })
       .then(res => {
-        console.log(res)
+        return res.json()
+      })
+      .then(data => {
+        let playlist_id = data.id
+        let playlistURL = `https://api.spotify.com/v1/users/${user_id}/playlists/${playlist_id}/tracks`
+
+        let spotifyPlaylistArr = this.props.playlist.playlistArr
+        .filter(song => {
+          return song.spotifyID !== null;
+        })
+        .map(song => {
+          return `spotify:track:${song.spotifyID}`
+        })
+
+        console.log('spotifyPlaylistArr is ', spotifyPlaylistArr)
+
+        return fetch(playlistURL, {
+          method: 'POST',
+          body: JSON.stringify({
+            "uris": spotifyPlaylistArr
+          }),
+          headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+          }
+        })
+      })
+      .then(res => {
+        return res.json()
+      })
+      .then(data => {
+        console.log('SUCCESS! SONGS ADDED AND DATA IS ', data)
       })
       .catch(err => {
         console.log(error)
       })
     }
+
+    addTracksToPlaylist(username, playlist, tracks, callback) {
+      console.log('addTracksToPlaylist', username, playlist, tracks);
+      var url = 'https://api.spotify.com/v1/users/' + username +
+        '/playlists/' + playlist +
+        '/tracks'; // ?uris='+encodeURIComponent(tracks.join(','));
+      $.ajax(url, {
+        method: 'POST',
+        data: JSON.stringify(tracks),
+        dataType: 'text',
+        headers: {
+          'Authorization': 'Bearer ' + g_access_token,
+          'Content-Type': 'application/json'
+        },
+        success: function(r) {
+          console.log('add track response', r);
+          callback(r.id);
+        },
+        error: function(r) {
+          callback(null);
+        }
+      });
+    }
+
+
+
+
+
+
+
     
 
     render() {
@@ -234,7 +297,8 @@ const mapState = (state) => {
       chosenTags: state.chosenTags,
       playlist: state.playlist,
       user: state.user,
-      tokens: state.spotifyTokens
+      tokens: state.spotifyTokens,
+      chosenTrack: state.chosenTrack
     }
   }
   
