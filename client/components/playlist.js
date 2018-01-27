@@ -110,7 +110,7 @@ export class Playlist extends Component {
       fetch(url, {
         method: 'POST',
         body: JSON.stringify({
-          "name": `VIBEZ Playlist: ${this.props.chosenTrack.artist} - ${this.props.chosenTrack.track}`,
+          "name": `VIBEZ playlist: ${this.props.chosenTrack.artist} - ${this.props.chosenTrack.track}`,
           "description": `based on tags: ${chosenTags}`,
           "public": false
         }),

@@ -122,7 +122,7 @@ export class TagOptions extends Component {
                 {/* create playlist button */}
                     <button id={this.state.notEnough ? "chose-tags-disable" : "chose-tags"}
                         disabled={this.state.notEnough}
-                        onClick={e => this.props.handleSubmit(e, this.state.choosingTags, this.props.tagOptions, this.props.chosenTrack.artist, this.props.chosenTrack.track)}>VIBE!
+                        onClick={e => this.props.handleSubmit(e, this.state.choosingTags, this.props.tagOptions, this.props.chosenTrack.artist, this.props.chosenTrack.track)}>VIBE
                     </button>
                     {
                         this.state.choosingTags.length ? (

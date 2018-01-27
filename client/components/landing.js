@@ -12,6 +12,7 @@ export class Landing extends Component {
         super()
     }
 
+
     render(props) {
         let parsedQuery = querystring.parse(this.props.location.hash.slice(1))
         parsedQuery.access_token ? 
@@ -36,7 +37,7 @@ export class Landing extends Component {
                         artist: <input type="text" className="input"name="artist"/>
                         </div>
                         <div className="line">
-                        <button id="entersong" type="submit">SET VIBEZ</button>
+                        <button id="entersong" type="submit">VIBE</button>
                         </div>
                     </form>
                 </div>
@@ -47,7 +48,8 @@ export class Landing extends Component {
 
 const mapState = (state) => {
     return {
-      tagOptions: state.tagOptions
+      tagOptions: state.tagOptions,
+      firstview: state.firstview
     }
   }
   

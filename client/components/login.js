@@ -6,12 +6,15 @@ import history from '../history'
 
 export const Login = props => {
   return (
-    <div>
+    <div className="login-window">
       <div className="login-main">
         <a href="/api/spotifyAuth/login">vibe with Spotify</a>
       </div>
       <div className="login">
         <a href="/landing">vibe without Spotify</a>
+      </div>
+      <div id="login-disappear">
+        playlist maker
       </div>
     </div>
   )
