@@ -17,6 +17,7 @@ export class Playlist extends Component {
             started: false,
             show: false,
             paused: false,
+            exportFail: false,
             exported: false
         }
         this.getVideo = this.getVideo.bind(this)
@@ -102,8 +103,7 @@ export class Playlist extends Component {
       let token = this.props.tokens.access_token
       let user_id = this.props.tokens.id
       let chosenTags = this.props.chosenTags.join(' ')
-
-      console.log('FETCHING WITH TOKEN ', token, '\n AND ID ', user_id)
+      let spotifyPlaylistLink
 
       const url = 'https://api.spotify.com/v1/users/' + user_id +
       '/playlists';
@@ -123,6 +123,8 @@ export class Playlist extends Component {
         return res.json()
       })
       .then(data => {
+        console.log('PLAYLIST CREATED DATA IS ', data)
+        spotifyPlaylistLink = data.external_urls.spotify
         let playlist_id = data.id
         let playlistURL = `https://api.spotify.com/v1/users/${user_id}/playlists/${playlist_id}/tracks`
 
@@ -133,8 +135,6 @@ export class Playlist extends Component {
         .map(song => {
           return `spotify:track:${song.spotifyID}`
         })
-
-        console.log('spotifyPlaylistArr is ', spotifyPlaylistArr)
 
         return fetch(playlistURL, {
           method: 'POST',
@@ -151,43 +151,17 @@ export class Playlist extends Component {
         return res.json()
       })
       .then(data => {
-        console.log('SUCCESS! SONGS ADDED AND DATA IS ', data)
+        if (data.snapshot_id) {
+          window.open(spotifyPlaylistLink, "_blank")
+          this.setState({exported: true})
+        } else {
+          this.setState({exportFail: true, exported: true})
+        } 
       })
       .catch(err => {
         console.log(error)
       })
     }
-
-    addTracksToPlaylist(username, playlist, tracks, callback) {
-      console.log('addTracksToPlaylist', username, playlist, tracks);
-      var url = 'https://api.spotify.com/v1/users/' + username +
-        '/playlists/' + playlist +
-        '/tracks'; // ?uris='+encodeURIComponent(tracks.join(','));
-      $.ajax(url, {
-        method: 'POST',
-        data: JSON.stringify(tracks),
-        dataType: 'text',
-        headers: {
-          'Authorization': 'Bearer ' + g_access_token,
-          'Content-Type': 'application/json'
-        },
-        success: function(r) {
-          console.log('add track response', r);
-          callback(r.id);
-        },
-        error: function(r) {
-          callback(null);
-        }
-      });
-    }
-
-
-
-
-
-
-
-    
 
     render() {
         const bgStyles = {
