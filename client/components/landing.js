@@ -20,7 +20,7 @@ export class Landing extends Component {
         :
         null
         return (
-            <div>
+            <div id="landing-window" style={{"height": "80vh"}}>
               {parsedQuery.name ?
                 (<div className="greeting">
                   hi, {parsedQuery.name.toLowerCase()}!

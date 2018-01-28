@@ -4,6 +4,7 @@ import ReactRevealText from 'react-reveal-text'
 import history from '../history'
 
 import { viewed } from '../store'
+import { detect } from 'detect-browser'
 
 
 export class NavBar extends Component {
@@ -23,7 +24,10 @@ export class NavBar extends Component {
     window.location.reload();
   }
     render () {
-      return (
+      const browser = detect();
+      return (browser.name === 'safari') ?
+        null
+    : (
         <div id={(this.props.firstview > 1 || window.location.pathname.slice(0, 8) === '/landing') ? "navbar-stay" : "navbar"} >
             <div>
           {<h1 id="navmargin" onClick={e => this.handleClick(e)}>VIBEZ</h1>}

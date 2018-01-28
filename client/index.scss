@@ -2,20 +2,20 @@
 //   background: rgba(211, 211, 211, 0)
 // }
 html {
-  // font-family: Nunito !important;
-  //   background: url(https://static.pexels.com/photos/417458/pexels-photo-417458.jpeg) center;
-  //   background-size: cover;
-  //   background-color: #101010;
-    // background-repeat: round;
+  font-family: Nunito !important;
+  // background: url(https://static.pexels.com/photos/417458/pexels-photo-417458.jpeg) no-repeat center center /cover;
+  background-color: #101010;
+  background-repeat: round;
 }
 
 html:before {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   left: 0;
   height: 100%;
   width: 100%;
+  background-color: #101010;
   background: url(https://static.pexels.com/photos/417458/pexels-photo-417458.jpeg) no-repeat center center /cover;
   content: '';
   z-index: -1;
@@ -32,8 +32,8 @@ html:before {
     filter: blur(5px);
   }
   100% {
-    -webkit-filter: blur(0px);
-    filter: blur(0px);
+    -webkit-filter: blur(1px);
+    filter: blur(1px);
   }
 }
 
@@ -55,6 +55,11 @@ body {
 
   h3, h4, h2, tr, th {
     font-weight: normal;
+  }
+
+  h5 {
+    margin-bottom: 0.5em;
+    margin-top: -1em;
   }
 
   a {
@@ -80,7 +85,9 @@ body {
   display: flex;
   width: 90%;
   justify-content: center;
-  background: rgba(255, 255, 255, 0)
+  background: rgba(255, 255, 255, 0);
+  z-index: 100;
+  // height: 80vh;
 }
 
 .input {
@@ -116,6 +123,8 @@ body {
   text-align: center;
   background-color: white;
   font-size: 20px;
+  // margin-bottom: 50%;
+  transition: all ease-in-out;
 
   text-shadow: 
   0 6px 1px rgba(113, 113, 113, 0.043),
@@ -214,6 +223,7 @@ body {
   border-radius: 10px;
   height: calc(100% - 1em);
   -webkit-animation: fadeinbackground 3s;
+  transition: all ease-in-out;
 }
 
 
@@ -231,7 +241,9 @@ body {
   }
 }
 
-
+#options-div {
+  -webkit-animation: fadein 3s;
+}
 
 
 input {
@@ -240,9 +252,13 @@ input {
   margin: 5px
 }
 
+.login-window {
+  height: 80vh;
+}
+
 #login-disappear {
   text-align: center;
-  margin-bottom: 60%;
+  // margin-bottom: 91%;
     color: #0e386c;
     font-size: 2em;
     opacity: 0;
@@ -373,8 +389,15 @@ input {
   color: white
 }
 
-#pick-song {
-  margin-top: 0;
+// #pick-song {
+//   margin-top: 0;
+//   -webkit-animation: fadein 2s;
+//   transition: all ease-in-out;
+// }
+
+form {
+  -webkit-animation: fadein 3s;
+  transition: all ease-in-out;
 }
 
 #chose-tags-disable{
@@ -402,8 +425,8 @@ input {
     color: white
   }
   to {
-    background-color: white;
-    color: black;
+    background-color: rgba(255, 255, 255, 0.653);
+    color: rgb(0, 60, 128);
   }
 }
 
@@ -759,6 +782,8 @@ div.line {
 
 #sorry {
     margin-top: 10%;
+    margin-bottom: 70%;
+    -webkit-animation: fadein 2s;
 }
 
 .did-you-mean {
@@ -776,6 +801,7 @@ div.line {
 
 .greeting {
   margin-top: 1em;
+  -webkit-animation: fadein 3s;
 }
 
 #too-many-chosen {
@@ -808,7 +834,7 @@ button {
       // font-size: 1.5em;
       // color: #228DFF;
       -webkit-text-fill-color: hsla(213, 77%, 24%, 0.85);
-      -webkit-text-stroke-width: 2px;
+      -webkit-text-stroke-width: 3px;
       // font-family: Iceland;
       -webkit-animation: headerfly 6s, neon 1.5s ease-in-out infinite alternate;
       -moz-animation: headerfly 6s, neon 1.5s ease-in-out infinite alternate;
@@ -829,6 +855,13 @@ button {
     }
   }
 
+#safari {
+  // background-color: rgba(16, 16, 16, 0.577);
+  color: white;
+  font-size: 3em;
+  margin-top: 50vh;
+  margin-bottom: 80vh;
+}
 
 @-webkit-keyframes neon {
   from {

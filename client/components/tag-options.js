@@ -151,8 +151,9 @@ export class TagOptions extends Component {
                     
                     {/* directions */}
                     <div id="directions">
-                    <h3>pick 1 - 5 qualities that especially fit the vibe</h3>
+                    <h3>pick 1 - 5 qualities that perfectly vibe</h3>
                     <h4>remove any qualities below that don't vibe</h4>
+                    <h5>(you must leave at least 5)</h5>
                     </div>
                     {
                         this.state.tooMany ? 
@@ -207,7 +208,7 @@ export class TagOptions extends Component {
         } else {
             return (
             <div id="sorry">
-                Gathering info!!
+                
             </div>
             )
         }

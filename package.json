@@ -23,9 +23,11 @@
   "dependencies": {
     "axios": "^0.15.3",
     "body-parser": "^1.16.1",
+    "browser-detection": "^0.3.3",
     "compression": "^1.7.1",
     "connect-session-sequelize": "^4.1.0",
     "cookie-parser": "^1.4.3",
+    "detect-browser": "^2.0.0",
     "express": "^4.14.1",
     "express-session": "^1.15.1",
     "fetch": "^1.1.0",

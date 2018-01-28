@@ -171,6 +171,7 @@ export class Playlist extends Component {
           const textStyles = {
             color: 'white',
             fontSize: '24px',
+            height: '80vh',
             lineHeight: '36px',
             fontFamily: 'sans-serif',
             textAlign: 'center',
