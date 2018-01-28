@@ -19,19 +19,19 @@ html:before {
   background: url(https://static.pexels.com/photos/417458/pexels-photo-417458.jpeg) no-repeat center center /cover;
   content: '';
   z-index: -1;
-  -webkit-animation: blureffect 4s ease-out;
+  -webkit-animation: blureffect 2s ease-out;
 }
 
 @-webkit-keyframes blureffect {
-  0% {
+  from {
     -webkit-filter: blur(100px);
     filter: blur(100px);
   }
-  10% {
-    -webkit-filter: blur(5px);
-    filter: blur(5px);
-  }
-  100% {
+  // 10% {
+  //   -webkit-filter: blur(5px);
+  //   filter: blur(5px);
+  // }
+  to {
     -webkit-filter: blur(1px);
     filter: blur(1px);
   }
@@ -801,6 +801,7 @@ div.line {
 
 .greeting {
   margin-top: 1em;
+  margin-bottom: -1em;;
   -webkit-animation: fadein 3s;
 }
 
@@ -874,12 +875,12 @@ button {
 
 @-webkit-keyframes headerfly {
   0% {
-    transform: translateY(300%) scale(20) translateX(-5%);
+    transform: translateY(300%) scale(0.1) translateX(-5%);
     -webkit-text-fill-color: hsla(213, 77%, 24%, 0.75);
     opacity: 0.0;
     // text-shadow: none !important;
   }
-  30% {
+  50% {
     transform: translateY(360%) scale(2);
     -webkit-text-fill-color: hsla(213, 77%, 24%, 0.75);
     opacity: 1.0;
