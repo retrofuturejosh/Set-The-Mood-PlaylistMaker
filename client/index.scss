@@ -16,7 +16,7 @@ html:before {
   height: 100%;
   width: 100%;
   background-color: #101010;
-  background: url(https://static.pexels.com/photos/417458/pexels-photo-417458.jpeg) no-repeat center center /cover;
+  background: url('/background.jpg') no-repeat center center /cover;
   content: '';
   z-index: -1;
   -webkit-animation: blureffect 2s ease-out;
@@ -171,7 +171,7 @@ body {
   display: flex;
   height: 80px;
   justify-content: center;
-  background: linear-gradient(#bb00fb12, #bc00fbb3, #bb00fb12);
+  background: linear-gradient(#bb00fb12, #bc00fbb3, #bc00fb00);
   margin-bottom: 0.5em;
   border-radius: 10px;
   -webkit-animation: navfade 6s;
@@ -182,7 +182,7 @@ body {
   display: flex;
   height: 80px;
   justify-content: center;
-  background: linear-gradient(#bb00fb12, #bc00fbb3, #bb00fb12);
+  background: linear-gradient(#bb00fb12, #bc00fbb3, #bc00fb00);
   margin-bottom: 0.5em;
   border-radius: 10px;
 }
@@ -529,7 +529,7 @@ div.taga {
   font-size: 25px;
   overflow-wrap: break-word;
   color: white;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .tag:hover {
@@ -702,6 +702,15 @@ th {
   font-weight: lighter;
 }
 
+.small-spotify-logo {
+  margin-top: 0.3em;
+  width: 1.5em !important;
+  height: 1.5em !important;
+  min-width: 1.5em !important;
+  min-height: 1.5em !important;
+}
+
+
 table {
   width: 90%;
   padding-left: 10%;
@@ -775,29 +784,49 @@ th:hover {
   margin-top: 8px;
 }
 
-.control {
-  margin-left: 15px;
-  margin-right: 15px;
-}
 
 div.control {
   border-radius: 5px;
 }
 
 .control {
-  margin-top: 25%;
-  margin-top: 22%;
+  margin-top: 20%;
+  margin-left: 15px;
+  margin-right: 15px;
   height: 20px;
   padding: 10px;
   background-color: #194276;
 }
 
 .control:hover {
-  margin-top: 22%;
+  margin-top: 20%;
   height: 20px;
   padding: 10px;
   color: white;
   background-color: #404040;
+}
+
+.spotify-image {
+  background-color: #282828;
+  border-radius: 5px;
+  justify-content: space-evenly !important;
+  padding-left: 0.5em;
+  padding-right: 0.2em;
+}
+
+.artist-thumb {
+    width: 15vw;
+    height: 15vw;
+    max-width: 5em;
+    max-height: 5em;
+    min-width: 3.7em;
+    min-height: 3.7em;
+    transition: 0.2s ease-in-out;
+}
+
+.artist-thumb:hover {
+  transform: scale(2.5);
+  z-index: 100;
 }
 
 h1#navmargin {
@@ -827,6 +856,23 @@ div.line {
   height: 5em;
 }
 
+.play-button {
+  opacity: 0.8;
+  width: 1.6em !important;
+  height: 1.6em !important;
+  min-width: 1.6em !important;
+  min-height: 1.6em !important;
+}
+
+.spotify-controls {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  padding-bottom: 10px;
+  padding-top: 5px;
+  margin-left: 0.3em;
+}
+
 .hover-red {
   font-size: 3em;
   font-weight: lighter;
@@ -845,8 +891,9 @@ div.line {
 
 #export {
   padding-bottom: 1em;
-  width: 50%;
-  margin-left: 25%;
+  // width: 50%;
+  // margin-left: 25%;
+  font-size: 1.7em;
   transition: all .2s ease-in-out;
 }
 

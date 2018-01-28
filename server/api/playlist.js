@@ -148,10 +148,16 @@ router.get('/', (req, res, next) => {
       let spotifyPromise = finalPlaylist.map(finalSong => {
         return searchSpotify(finalSong.name, finalSong.artist, token)
         .then(result => {
-          if(typeof result === 'string') finalSong.spotifyID = null;
+          if(typeof result === 'string')finalSong.spotifyID = null;
           else {
             finalSong.spotifyID = result.trackID
+            finalSong.spotifyURL = result.url
+            finalSong.preview = result.previewURL
+            finalSong.name = result.track
+            finalSong.artist = result.artist
+            finalSong.image = result.image
           }
+          // console.log('FINAL SONG IS ', finalSong)
           playListWithSpotifyData.push(finalSong)
         })
         .catch(error => console.log(error))
@@ -161,7 +167,7 @@ router.get('/', (req, res, next) => {
     .then(playlist => {
         let final = {}
         playlist = playListWithSpotifyData.filter(track => {
-            if (track.youtubeid) return true
+            if (track.youtubeid && track.spotifyID) return true
             return false
         })
         final.playlistArr = shuffle(playlist)

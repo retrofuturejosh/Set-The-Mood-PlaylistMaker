@@ -47,15 +47,24 @@ function searchSpotify(trackName, artist, token) {
   })
   .then(body => {
     if (body.tracks.items.length) {
-      let returnArtist = body.tracks.items[0].artists[0].name
-      let returnTrack = body.tracks.items[0].name
-      let trackID = body.tracks.items[0].id
+      let trackData = body.tracks.items[0]
+      let image = trackData.album.images[0]
+      let returnArtist = trackData.artists[0].name
+      let fullArtistObj = trackData.artists[0]
+      let returnTrack = trackData.name
+      let trackID = trackData.id
+      let songURL = trackData.external_urls
+      let preview = trackData.preview_url
       let returnData = {
           artist: returnArtist,
           track: returnTrack,
-          trackID
+          trackID,
+          url: songURL,
+          previewURL: preview,
+          image
         }
-      return returnData;
+      // console.log(returnData)
+      return returnData
     } else {
       return 'error: track not found'
     }

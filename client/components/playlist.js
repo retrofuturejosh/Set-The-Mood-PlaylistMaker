@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
+import ReactDOM from 'react-dom'
 import history from '../history'
 import YouTube from 'react-youtube'
 import ReactRevealText from 'react-reveal-text'
@@ -19,6 +20,7 @@ export class Playlist extends Component {
             paused: false,
             exportFail: false,
             exported: false,
+            playingSongs: []
         }
         this.getVideo = this.getVideo.bind(this)
         this._onReady = this._onReady.bind(this)
@@ -26,6 +28,7 @@ export class Playlist extends Component {
         this._handleKeyDown = this._handleKeyDown.bind(this)
         this.timeOutGraphic = this.timeOutGraphic.bind(this)
         this.exportPlaylist = this.exportPlaylist.bind(this)
+        this.playSong = this.playSong.bind(this)
     }
 
     componentDidMount() {
@@ -33,6 +36,7 @@ export class Playlist extends Component {
         this.timeOutGraphic()
         document.addEventListener("keydown", this._handleKeyDown)
       }
+      
 
     componentWillUnmount() {
         document.removeEventListener("keydown", this._handleKeyDown)
@@ -97,6 +101,24 @@ export class Playlist extends Component {
         this.setState({
             videoToggle: i
         })
+    }
+
+    playSong(e, name) {
+      let mp3 = document.getElementById(name)
+      let songsArr = this.state.playingSongs.slice()
+
+      if (this.state.playingSongs.includes(name)) {
+        let toSlice = songsArr.indexOf(name)
+        songsArr.splice(toSlice, 1)
+        this.setState({playingSongs: songsArr}, () => {
+          mp3.pause()
+        })
+      } else {
+        songsArr.push(name)
+        this.setState({playingSongs: songsArr}, () => {
+          mp3.play()
+        })
+      }
     }
 
     exportPlaylist() {
@@ -195,7 +217,7 @@ export class Playlist extends Component {
 
                       {(this.props.tokens.access_token && !this.state.exported)?
                         (<div id="export" onClick={this.exportPlaylist}>
-                          export playlist to Spotify account
+                          get Spotify playlist
                         </div>)
                         :
                         (null) 
@@ -272,12 +294,37 @@ export class Playlist extends Component {
                                     <tr key={`${i}div`}>
 
                                       {(this.props.tokens.access_token && song.spotifyID) ?
-                                        (<iframe className="spotify-iframe" src={`https://open.spotify.com/embed?uri=spotify:track:${song.spotifyID}`}
-                                        frameborder="0" allowtransparency="true"></iframe>)
+                                        (
+                                        <div
+                                          key={`spotify${i}`}
+                                          className="spotify-image" >
+                                          <img className="artist-thumb" src={song.image.url} />
+                                          <audio
+                                            id={song.name}
+                                            src={song.preview}/>
+                                          <div className="spotify-controls">
+                                            {song.preview ? 
+                                                (<div>
+                                                  <img
+                                                    className="play-button"
+                                                    src={(+this.state.playingPreview === i ? "/pause-button.png" : "/play-button.png")}
+                                                    onClick={(e) => {this.playSong(e, song.name)}} />
+                                                </div>)
+                                                :
+                                                (<div>
+                                                </div>)}
+                                            <div>
+                                              <img
+                                                className ="small-spotify-logo"
+                                                src="/spotify-icon.png"
+                                                onClick={e => {window.open(song.spotifyURL.spotify)}}/>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      )
                                       :
                                         null
                                       }
-
                                       {(this.props.tokens.access_token && !song.spotifyID) ? 
                                         (<th className="th-title"> Song Not found on Spotify </th> )
                                       :
