@@ -18,10 +18,10 @@ export const Login = props => {
   : (
     <div className="login-window">
       <div className="login-main">
-        <a href="/api/spotifyAuth/login">vibe with Spotify</a>
+        <a href="/api/spotifyAuth/login">AUDIO</a> <img id="spotify-logo" src="/spotify-icon.png"/>
       </div>
       <div className="login" onClick={e => {history.push('/landing')}}>
-        <a>vibe without Spotify</a>
+        <a>VIDEO<img id="youtube-logo" src="/youtube-icon.png"/></a>
       </div>
       <div id="login-disappear">
         playlist maker
