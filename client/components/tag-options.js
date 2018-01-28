@@ -119,20 +119,33 @@ export class TagOptions extends Component {
             return (
                 <div id="options-div">
 
-                {/* create playlist button */}
-                    <button id={this.state.notEnough ? "chose-tags-disable" : "chose-tags"}
-                        disabled={this.state.notEnough}
-                        onClick={e => this.props.handleSubmit(e, this.state.choosingTags, this.props.tagOptions, this.props.chosenTrack.artist, this.props.chosenTrack.track)}>VIBE
-                    </button>
+                {/* directions */}
+                <div id="directions">
+                    <h3>pick 1 - 5 qualities that MOST fit your VIBE</h3>
+                    <h4>remove ALL qualities below that do NOT vibe</h4>
+                    <h5>(you must leave at least 5)</h5>
+                    </div>
                     {
-                        this.state.choosingTags.length ? (
-                            <div className="center-text">
+                        this.state.tooMany ? 
+                        (<div id="too-many-chosen">
+                            sorry, you can only choose 5 main qualities <br/>
+                            don't worry the qualities below will still count (just not as much)
+                        </div>)
+                        :
+                        null
+                    }
+                    {
+                        this.state.deletedTooMany ? (
+                            <div id="deleted-too-many">
+                                you must leave at least 5 qualities
                             </div>
-                        ) : null
+                        )
+                        : null
                     }
 
-                {/* list of chosen tags */}
-                    <div className="tag-holder">
+
+                    {/* list of chosen tags */}
+                      <div className="tag-holder">
                         {this.state.choosingTags.map((tag, i) => {
                             return (
                                 <div 
@@ -148,30 +161,22 @@ export class TagOptions extends Component {
                             )
                         })}
                     </div>
-                    
-                    {/* directions */}
-                    <div id="directions">
-                    <h3>pick 1 - 5 qualities that perfectly vibe</h3>
-                    <h4>remove any qualities below that don't vibe</h4>
-                    <h5>(you must leave at least 5)</h5>
-                    </div>
+
+                {/* create playlist button */}
+                    <button id={this.state.notEnough ? "chose-tags-disable" : "chose-tags"}
+                        disabled={this.state.notEnough}
+                        onClick={e => this.props.handleSubmit(e, this.state.choosingTags, this.props.tagOptions, this.props.chosenTrack.artist, this.props.chosenTrack.track)}>VIBE
+                    </button>
                     {
-                        this.state.tooMany ? 
-                        (<div id="too-many-chosen">
-                            sorry, you can only choose 5 main qualities. <br/>
-                            don't worry the qualities below will still count (just not as much)
-                        </div>)
-                        :
-                        null
-                    }
-                    {
-                        this.state.deletedTooMany ? (
-                            <div id="deleted-too-many">
-                                you must leave at least 5 qualities
+                        this.state.choosingTags.length ? (
+                            <div className="center-text">
                             </div>
-                        )
-                        : null
+                        ) : null
                     }
+
+
+                    
+                    
 
                     {/* list of possible tags */}
                     <div className="tag-holder">

@@ -58,8 +58,10 @@ body {
   }
 
   h5 {
-    margin-bottom: 0.5em;
-    margin-top: -1em;
+    margin-bottom: 1em;
+    margin-top: 0.6em;
+    font-size: 1.2em;
+    font-weight: lighter;
   }
 
   a {
@@ -121,7 +123,7 @@ body {
   margin-left: 25%;
   padding: 0 25px 0 25px;
   text-align: center;
-  background-color: white;
+  background-color: rgba(62, 54, 255, 0.36);
   font-size: 20px;
   // margin-bottom: 50%;
   transition: all ease-in-out;
@@ -135,8 +137,9 @@ body {
   0 5px 5px rgba(130, 130, 130, 0.091),
   0 10px 10px rgba(114, 114, 114, 0.077);
   border-radius: 10px;
-  border-width: 2px;
-  border-color: black;
+  border-width: 0px;
+  color: white;
+  // border-color: black;
 }
 
 #entersong button {
@@ -149,18 +152,18 @@ body {
 }
 
 #entersong:hover {
-  background-color: rgba(0, 119, 255, 0.393);
+  background-color: rgba(60, 21, 255, 0.584);
   box-shadow: inset 0px 0px 5px -1px #000000, 
   inset 0px 0px 42px -10px #A5A5A5;
   color: white;
   text-shadow: 
-  0 6px 1px rgba(113, 113, 113, 0.043),
-  0 0 5px rgba(126, 126, 126, 0.043),
-  0 1px 3px rgba(114, 114, 114, 0.16),
-  0 2px 4px rgba(116, 116, 116, 0.119),
-  0 2px 5px rgba(125, 125, 125, 0.16),
-  0 5px 5px rgba(130, 130, 130, 0.091),
-  0 10px 10px rgba(114, 114, 114, 0.077);
+  0 6px 1px rgba(82, 117, 226, 0.043)
+  0 0 5px rgba(82, 117, 226, 0.043),
+  0 1px 3px rgba(82, 117, 226, 0.16),
+  0 2px 4px rgba(82, 117, 226, 0.119),
+  0 2px 5px rgba(82, 117, 226, 0.16),
+  0 5px 5px rgba(82, 117, 226, 0.091),
+  0 10px 10px rgba(82, 117, 226, 0.077);
 }
 
 #navbar {
@@ -171,7 +174,7 @@ body {
   background: linear-gradient(#bb00fb12, #bc00fbb3, #bb00fb12);
   margin-bottom: 0.5em;
   border-radius: 10px;
-  -webkit-animation: navfade 7s;
+  -webkit-animation: navfade 6s;
 }
 
 #navbar-stay{
@@ -188,31 +191,33 @@ body {
   0% {
     background: linear-gradient(#bc00fb00, #bc00fb00 , #bc00fb00);
   }
-
-  78% {
+  91% {
     background: linear-gradient(#bc00fb00, #bc00fb00 , #bc00fb00);
   }
-
-  86% {
+  92% {
     background: linear-gradient(#bc00fb00, #bc00fb15 , #bc00fb00);
   }
-
-  88% {
+  93% {
+    background: linear-gradient(#bc00fb00, #bc00fb23 , #bc00fb00);
+  }
+  94% {
     background: linear-gradient(#bc00fb00, #bc00fb2e , #bc00fb00);
   }
-
-  91% {
+  95% {
     background: linear-gradient(#bc00fb00, #bc00fb46 , #bc00fb00);
   }
-
-  94% {
+  96% {
     background: linear-gradient(#bc00fb00, #bc00fb60 , #bc00fb00);
   }
-
   97% {
     background: linear-gradient(#bc00fb00, #bc00fb8a , #bc00fb00);
   }
-
+  98% {
+    background: linear-gradient(#bc00fb00, #bc00fb9c , #bc00fb00);
+  }
+  99% {
+    background: linear-gradient(#bc00fb00, #bc00fb9c , #bc00fb00);
+  }
   100% {
     background: linear-gradient(#bb00fb12, #bc00fbb3, #bb00fb12);
   }
@@ -257,7 +262,7 @@ body {
   }
 
   100% {
-    background-color: rgba(15, 15, 15, 0.95);
+    background-color: rgba(15, 15, 15, 0.87);
   }
 }
 
@@ -382,13 +387,13 @@ input {
   height: 50px;
   margin-left: 25%;
   margin-right: 25%;
-  margin-top: 25px;
-  margin-bottom: 10px;
+  margin-top: 1em;
+  margin-bottom: 1em;
   border-radius: 10px;
   box-shadow: 5px 5px 25px -8px #30271F, 
   0px 0px 25px -2px rgba(250, 252, 210, 0.119), 
   0px 3px 16px 2px rgba(254, 249, 210, 0.139);
-  font-size: 20px;
+  font-size: 2em;
   text-shadow: 
   0 6px 1px rgba(113, 113, 113, 0.043),
   0 0 5px rgba(126, 126, 126, 0.043),
@@ -397,11 +402,11 @@ input {
   0 2px 5px rgba(125, 125, 125, 0.16),
   0 5px 5px rgba(130, 130, 130, 0.091),
   0 10px 10px rgba(114, 114, 114, 0.077);
-  border-width: 2px;
-  border-style: solid;
-  border-color: black;
-  background-color: rgba(0, 119, 255, 0.393);
-  color: white
+  border-width: 0px;
+  // border-style: solid;
+  // border-color: black;
+  background-color: rgba(62, 54, 255, 0.36);
+  color: white;
 }
 
 // #pick-song {
@@ -420,13 +425,14 @@ form {
   height: 50px;
   margin-left: 25%;
   margin-right: 25%;
-  margin-top: 25px;
-  margin-bottom: 10px;
+  margin-top: 1em;
+  margin-bottom: 1em;
   border-radius: 10px;
-  border-width: 2px;
-  color: lightgray;
-    box-shadow: 5px 5px 25px -8px #30271F, 
-  0px 0px 95px -30px rgb(113, 92, 118), 
+  color: rgba(0, 0, 0, 0.431);
+  font-size: 2em;
+  box-shadow: 5px 5px 25px -8px #30271F, 0px 0px 95px -30px #715c76;
+  background-color: #ffffff3d;
+  border-width: 0px;
 }
 
 #chose-tags:hover {
@@ -436,7 +442,7 @@ form {
 
 @-webkit-keyframes whitetoblue {
   from {
-    background-color: rgba(0, 119, 255, 0.393);
+    background-color: rgba(62, 54, 255, 0.36);
     color: white
   }
   to {
@@ -515,7 +521,7 @@ div.taga {
   height: 5em;
   padding: 5px;
   margin: 5px;
-  background-color: rgba(0, 119, 255, 0.393);
+  background-color: rgba(172, 2, 241, 0.77);
   border-radius: 10px;
   border-width: 1px;
   border-color: darkgray;
@@ -587,7 +593,7 @@ div.taga {
 }
 
 .remove-button {
-  background-color: white;
+  background-color: #ffffff00;
   padding: 0 0 0px 0;
   margin: 0;
   height: 18px;
@@ -597,7 +603,7 @@ div.taga {
   border-width: 0px;
   font-size: 10px;
   border-radius: 5px;
-  border-width: 1px;
+  border-width: 0px;
   justify-content: center;
   // -webkit-animation: flyin 1.4s;
 }
@@ -615,7 +621,19 @@ div.taga {
 }
 
 #directions {
-  text-align: center
+  text-align: center;
+
+  h3 {
+    margin-top: 0.3em;
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+  }
+
+  h4 {
+    margin-top: 0em;
+    font-size: 1.3em;
+    margin-bottom: 0em;
+  }
 }
 
 #options-div {
