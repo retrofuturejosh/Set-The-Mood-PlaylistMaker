@@ -6,7 +6,7 @@ const secret = require('../../secrets');
 
 const client_id = process.env.clientID || secret.spotifyClientId; // Your client id
 const client_secret = process.env.clientSecret || spotifyClientSecret; // Your secret
-const redirect_uri = 'http://localhost:8080/api/spotifyAuth/callback'; // Your redirect uri
+const redirect_uri = 'https://vibez-playlist-maker.herokuapp.com/api/spotifyAuth/callback'; // Your redirect uri
 
 
 const generateRandomString = length => {
