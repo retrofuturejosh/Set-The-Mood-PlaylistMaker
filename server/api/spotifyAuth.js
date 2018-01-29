@@ -4,8 +4,8 @@ const querystring = require('querystring');
 const cookieParser = require('cookie-parser');
 const secret = require('../../secrets');
 
-const client_id = secret.spotifyClientId; // Your client id
-const client_secret = secret.spotifyClientSecret; // Your secret
+const client_id = process.env.clientID || secret.spotifyClientId; // Your client id
+const client_secret = process.env.clientSecret || spotifyClientSecret; // Your secret
 const redirect_uri = 'http://localhost:8080/api/spotifyAuth/callback'; // Your redirect uri
 
 

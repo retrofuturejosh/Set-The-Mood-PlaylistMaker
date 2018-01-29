@@ -107,7 +107,6 @@ export class Playlist extends Component {
     moveBack(e, i) {
       if (+i < this.state.videoToggle) {
         let newIdx = +this.state.videoToggle - 1;
-        console.log('hi')
         this.setState({videoToggle: newIdx});
       }
     }
