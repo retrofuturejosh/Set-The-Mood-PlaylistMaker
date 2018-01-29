@@ -29,6 +29,7 @@ export class Playlist extends Component {
         this.timeOutGraphic = this.timeOutGraphic.bind(this)
         this.exportPlaylist = this.exportPlaylist.bind(this)
         this.playSong = this.playSong.bind(this)
+        this.moveBack = this.moveBack.bind(this)
     }
 
     componentDidMount() {
@@ -101,6 +102,14 @@ export class Playlist extends Component {
         this.setState({
             videoToggle: i
         })
+    }
+
+    moveBack(e, i) {
+      if (+i < this.state.videoToggle) {
+        let newIdx = +this.state.videoToggle - 1;
+        console.log('hi')
+        this.setState({videoToggle: newIdx});
+      }
     }
 
     playSong(e, name) {
@@ -217,7 +226,7 @@ export class Playlist extends Component {
 
                       {(this.props.tokens.access_token && !this.state.exported)?
                         (<div id="export" onClick={this.exportPlaylist}>
-                          get Spotify playlist
+                          Get Spotify playlist!
                         </div>)
                         :
                         (null) 
@@ -273,27 +282,18 @@ export class Playlist extends Component {
                 {   this.props.playlist.playlistArr ? (
                     <table>
                         <tbody>
-                          
-                          
-                          {!this.props.tokens.access_token ? 
-                            (<tr>
-                              <td className="th-title"> YouTube </td>
-                              <td className="th-title-x"> X </td>
-                            </tr>)
-                            :
                             <tr>
                               <td className="th-title"> Spotify </td>
                               <td className="th-title"> YouTube </td>
                               <td className="th-title-x"> X </td>
                             </tr>
-                          }
                            
                           
                             {this.props.playlist.playlistArr.map((song, i) => {
                                 return (
                                     <tr key={`${i}div`}>
 
-                                      {(this.props.tokens.access_token && song.spotifyID) ?
+                                      {song.spotifyID ?
                                         (
                                         <div
                                           key={`spotify${i}`}
@@ -339,7 +339,7 @@ export class Playlist extends Component {
                                             className="hover-red"
                                             key={`${i}a`} 
                                             
-                                            onClick={(e) => this.props.removeTrack(e, this.props.playlist, i)}
+                                            onClick={(e) => {this.moveBack(e, i), this.props.removeTrack(e, this.props.playlist, i);}}
                                         >
                                         
                                         </th>

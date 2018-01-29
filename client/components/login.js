@@ -18,10 +18,15 @@ export const Login = props => {
   : (
     <div className="login-window">
       <div className="login-main">
-        <a href="/api/spotifyAuth/login">AUDIO</a> <img id="spotify-logo" src="/spotify-icon.png"/>
+        <a href="/api/spotifyAuth/login">CONNECT SPOTIFY</a>
+        {/* <img id="spotify-logo" src="/spotify-icon.png"/> */}
+      </div>
+      <div id="or">
+        OR
       </div>
       <div className="login" onClick={e => {history.push('/landing')}}>
-        <a>VIDEO<img id="youtube-logo" src="/youtube-icon.png"/></a>
+        <a>SET VIBEZ</a>
+        {/* <img id="youtube-logo" src="/youtube-icon.png"/> */}
       </div>
       <div id="login-disappear">
         playlist maker

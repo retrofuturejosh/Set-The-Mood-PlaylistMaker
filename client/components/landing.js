@@ -23,14 +23,14 @@ export class Landing extends Component {
             <div id="landing-window" style={{"height": "80vh"}}>
               {parsedQuery.name ?
                 (<div className="greeting">
-                  hi, {parsedQuery.name.toLowerCase()}!
+                  Hi, {parsedQuery.name}!
                 </div>)
                 :
                 (null)}
                 <div>
                     <form className="form" onSubmit={e => this.props.handleSubmit(e)}>
                         <div className="line">
-                        <h3 id="pick-song">what song best fits the vibe you want?</h3>
+                        <h3 id="pick-song">What song best fits the vibe you want?</h3>
                         song: <input className="input" type="text" name="song"/>
                         </div>
                         <div className="line">
