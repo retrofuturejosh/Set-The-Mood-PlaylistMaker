@@ -121,9 +121,9 @@ export class TagOptions extends Component {
 
                 {/* directions */}
                 <div className="directions">
-                    <h3 id="step-one">Step one: CHOOSE your FAV vibez from vibe pool (max 5)</h3>
-                    <h3 id="step-two">Step two: REMOVE everything from vibe pool that doesn’t vibe</h3>
-                    <h5 id="step-two">(leave at least 5 vibez in vibe pool)</h5>
+                    <h3 id="step-one">Step one: CHOOSE your FAV vibez from pool below (max 5)</h3>
+                    <h3 id="step-two">Step two: REMOVE everything from the pool that doesn’t vibe</h3>
+                    <h5 id="step-two">(leave at least 5)</h5>
                     </div>
                     {
                         this.state.tooMany ? 
