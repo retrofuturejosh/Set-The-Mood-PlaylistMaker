@@ -5,9 +5,13 @@ import {withRouter, Link} from 'react-router-dom'
 import history from '../history'
 
 import { detect } from 'detect-browser'
+import MobileDetect from 'mobile-detect'
+
 
 export const Login = props => {
   const browser = detect();
+  const md = new MobileDetect(window.navigator.userAgent);
+  console.log(md.phone())
 
   return (browser.name === 'safari') ?
     (
@@ -18,6 +22,13 @@ export const Login = props => {
   : (
     <div className="login-window">
       <div className="login-main">
+      {(md.phone() !== null) ? 
+      <div id="mobile">
+        Note: Vibez is best experienced on a desktop
+      </div>
+      :
+      null
+      }
         <a href="/api/spotifyAuth/login">CONNECT SPOTIFY</a>
         {/* <img id="spotify-logo" src="/spotify-icon.png"/> */}
       </div>

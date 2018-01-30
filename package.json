@@ -34,6 +34,7 @@
     "history": "^4.6.3",
     "jasmine": "^2.8.0",
     "jsdom": "^11.5.1",
+    "mobile-detect": "^1.4.1",
     "morgan": "^1.8.1",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
