@@ -113,7 +113,6 @@ body {
 }
 
 #entersong {
-  display: flex;
   margin-left: 50%;
   margin-right: 50%;
   justify-content: center;
@@ -133,26 +132,27 @@ body {
   animation: neon 1.5s ease-in-out infinite alternate;
   font-size: 1.7em;
   letter-spacing: 2vw;
+  text-align: center;
 }
 
 #entersong button {
-  display: flex;
   text-align: center;
   margin-left: 50%;
   margin-right: 50%;
   justify-content: center;
   border-radius: 20px;
   border-radius: 10px;
-    box-shadow: 5px 5px 25px -8px #30271f, 0 0 25px -2px hsla(63,88%,91%,.119), 0 3px 16px 2px hsla(53,96%,91%,.139);
-    font-size: 2em;
-    text-shadow: 0 6px 1px hsla(0,0%,44%,.043), 0 0 5px hsla(0,0%,49%,.043), 0 1px 3px hsla(0,0%,45%,.16), 0 2px 4px hsla(0,0%,45%,.119), 0 2px 5px hsla(0,0%,49%,.16), 0 5px 5px hsla(0,0%,51%,.091), 0 10px 10px hsla(0,0%,45%,.077);
-    border-width: 0;
-    background-color: rgba(62,54,255,.36);
-    color: #fff;
-    visibility: visible;
-    animation: neon 1.5s ease-in-out infinite alternate;
-    font-size: 1.7em;
-    letter-spacing: 2vw;
+  box-shadow: 5px 5px 25px -8px #30271f, 0 0 25px -2px hsla(63,88%,91%,.119), 0 3px 16px 2px hsla(53,96%,91%,.139);
+  font-size: 2em;
+  text-shadow: 0 6px 1px hsla(0,0%,44%,.043), 0 0 5px hsla(0,0%,49%,.043), 0 1px 3px hsla(0,0%,45%,.16), 0 2px 4px hsla(0,0%,45%,.119), 0 2px 5px hsla(0,0%,49%,.16), 0 5px 5px hsla(0,0%,51%,.091), 0 10px 10px hsla(0,0%,45%,.077);
+  border-width: 0;
+  background-color: rgba(62,54,255,.36);
+  color: #fff;
+  visibility: visible;
+  animation: neon 1.5s ease-in-out infinite alternate;
+  font-size: 1.7em;
+  letter-spacing: 2vw;
+  text-align: center;
 }
 
 #entersong:hover {
@@ -168,6 +168,7 @@ body {
   0 2px 5px rgba(82, 117, 226, 0.16),
   0 5px 5px rgba(82, 117, 226, 0.091),
   0 10px 10px rgba(82, 117, 226, 0.077);
+  text-align: center;
 }
 
 #navbar {
