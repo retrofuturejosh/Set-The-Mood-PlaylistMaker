@@ -225,7 +225,7 @@ export class Playlist extends Component {
 
                       {(this.props.tokens.access_token && !this.state.exported)?
                         (<div id="export" onClick={this.exportPlaylist}>
-                          Get Spotify playlist!
+                          Export playlist to Spotify!
                         </div>)
                         :
                         (null) 
