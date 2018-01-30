@@ -3,7 +3,7 @@ const request = require('request-promise'); // "Request" library
 const secret = require('../../secrets')
 
 const client_id = process.env.clientID || secret.spotifyClientId; // Your client id
-const client_secret = process.env.clientSecret || spotifyClientSecret;
+const client_secret = process.env.clientSecret || secret.spotifyClientSecret;
 
 // your application requests authorization
 const authOptions = {
