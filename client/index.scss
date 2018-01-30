@@ -112,15 +112,17 @@ body {
   flex-direction: row;
 }
 
+.button-holder {
+  display: flex;
+  justify-content: center;
+}
+
 #entersong {
-  margin-left: 50%;
-  margin-right: 50%;
   justify-content: center;
   flex-direction: row;
   width: 50%;
   height: 50px;
-  margin-left: 25%;
-  padding: 0 25px 0 25px;
+  padding: 0 20px 0 25px;
   border-radius: 10px;
   box-shadow: 5px 5px 25px -8px #30271f, 0 0 25px -2px hsla(63,88%,91%,.119), 0 3px 16px 2px hsla(53,96%,91%,.139);
   font-size: 2em;
@@ -131,14 +133,13 @@ body {
   visibility: visible;
   animation: neon 1.5s ease-in-out infinite alternate;
   font-size: 1.7em;
-  letter-spacing: 2vw;
+  letter-spacing: 5px;
   text-align: center;
+  min-width: 5em;
 }
 
 #entersong button {
   text-align: center;
-  margin-left: 50%;
-  margin-right: 50%;
   justify-content: center;
   border-radius: 20px;
   border-radius: 10px;

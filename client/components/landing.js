@@ -36,7 +36,7 @@ export class Landing extends Component {
                         <div className="line">
                         artist: <input type="text" className="input"name="artist"/>
                         </div>
-                        <div className="line">
+                        <div className="button-holder">
                         <button id="entersong" type="submit">VIBE</button>
                         </div>
                     </form>
