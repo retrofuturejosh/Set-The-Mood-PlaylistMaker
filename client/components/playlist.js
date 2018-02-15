@@ -249,9 +249,12 @@ export class Playlist extends Component {
 
                       <div id="player">
                           <div className="control" 
-                          onClick={e => this.setState({
-                              videoToggle: (+this.state.videoToggle - 1)
-                              })}>
+                          onClick={e => {
+                            this.state.videoToggle > 0 ?
+                            this.setState({videoToggle: (+this.state.videoToggle - 1)})
+                            :
+                            this.setState({videoToggle: (this.props.playlist.playlistArr.length - 1)})
+                            }}>
                           prev
                           </div>
                       <div id="player-center">
@@ -266,9 +269,12 @@ export class Playlist extends Component {
                         />
                       </div>
                           <div className="control" 
-                          onClick={e => this.setState({
-                              videoToggle: (+this.state.videoToggle + 1)
-                              })}>
+                          onClick={e => {
+                            +this.state.videoToggle === this.props.playlist.playlistArr.length - 1 ?
+                            this.setState({videoToggle: 0})
+                            :
+                            this.setState({videoToggle: (+this.state.videoToggle + 1)})
+                            }}>
                           next
                           </div>
                       </div>
