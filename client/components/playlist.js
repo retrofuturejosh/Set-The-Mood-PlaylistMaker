@@ -254,14 +254,17 @@ export class Playlist extends Component {
                               })}>
                           prev
                           </div>
-                      < YouTube playing
-                      videoId={this.props.playlist.playlistArr[+this.state.videoToggle].youtubeid} 
-                      onEnd={this.getVideo}
-                      opts={opts}
-                      onStateChange={this._onRemove}
-                      onReady={this._onReady}
-                      ref="youTubePlayer"
-                      />
+                      <div id="player-center">
+                        {`${this.props.playlist.playlistArr[+this.state.videoToggle].artist} - ${this.props.playlist.playlistArr[+this.state.videoToggle].name}`} 
+                        < YouTube playing
+                        videoId={this.props.playlist.playlistArr[+this.state.videoToggle].youtubeid} 
+                        onEnd={this.getVideo}
+                        opts={opts}
+                        onStateChange={this._onRemove}
+                        onReady={this._onReady}
+                        ref="youTubePlayer"
+                        />
+                      </div>
                           <div className="control" 
                           onClick={e => this.setState({
                               videoToggle: (+this.state.videoToggle + 1)

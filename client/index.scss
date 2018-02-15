@@ -728,6 +728,13 @@ div.taga {
   flex-direction: row;
 }
 
+#player-center {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  text-align: center;
+}
+
 .left, .left th {
   text-align: left
 }
