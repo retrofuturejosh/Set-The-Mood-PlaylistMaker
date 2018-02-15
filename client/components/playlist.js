@@ -105,7 +105,9 @@ export class Playlist extends Component {
     }
 
     moveBack(e, i) {
-      if (+i < this.state.videoToggle) {
+      if(+i === this.props.playlist.playlistArr.length - 1){
+        this.setState({videoToggle: +i - 1});
+      } else if (+i < this.state.videoToggle) {
         let newIdx = +this.state.videoToggle - 1;
         this.setState({videoToggle: newIdx});
       }
