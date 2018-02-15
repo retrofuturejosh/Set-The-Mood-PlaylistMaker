@@ -729,8 +729,8 @@ div.taga {
 }
 
 #player-center {
-  display: flex;
-  flex-direction: column;
+  display: flex !important;
+  flex-direction: column !important;
   align-content: center;
   text-align: center;
 }
